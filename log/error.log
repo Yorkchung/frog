@@ -1,0 +1,13 @@
+[Error] 2017/12/18 19:18:51 record.go:7: ListenAndServe err
+[Error] 2017/12/18 20:48:22 record.go:7: ListenAndServe err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 21:12:41 record.go:7: open csv file err
+[Error] 2017/12/18 23:02:37 record.go:7: connectRedisErr

@@ -1,0 +1,20 @@
+app                運行在正式網站的 go src
+config             存放網站配置檔
+local              運行在本機的 go src
+log                存放記錄檔
+mysql              存放資料庫的資料表
+note               備忘筆記
+public             放 css javascript
+resource           存放 需要引用或引入的資源 如有特定的圖集、jQuery
+storage            存放各類檔案 如 photo CSV
+template / layout  存放 html 模版
+
+html 當中的 script 跟 link 連結 public 對應資料夾內的 js 跟 css
+
+找後端送回來的資料的命名：直接 console.log(result)查看；或是開 local 資料夾查看 data.go （以前者為準）
+
+分離
+https://www.zhihu.com/question/28207685
+
+網站演化史
+http://brianway.github.io/2017/01/18/reading-note-architecture-design/

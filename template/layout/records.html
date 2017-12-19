@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/public/css/records/records.css">
+                <script src="/resource/jquery/jquery-3.2.1.min.js"></script>
+                <script src="/public/javascript/records/init.js"></script>
+        <title>Record</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="top">
+                <div class="nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/challenge">Challenge</a></li>
+                        <li class="dropdown">
+                            <!--arrange by category label: frog butterfly plant ... -->
+                            <a href="javascript:void(0)" class="dropbtn">Library</a>
+                            <div class="dropdown-content">
+                                <a href="/library/frog">青蛙</a><br/>
+                                <a href="/library/butterfly">蝴蝶</a><br/>
+                                <a href="/library/plant">植物</a><br/>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">Gallery</a>
+                            <div class="dropdown-content">
+                                <a href="/photo/frog">青蛙</a><br/>
+                                <a href="/photo/butterfly">蝴蝶</a><br/>
+                                <a href="/photo/plant">植物</a><br/>
+                            </div>
+                        </li>
+                        <li><a href="/records">Record</a></li>
+                        <li><a href="/upload">Upload</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main">
+                <div class="records-box">
+
+                </div>
+            </div>
+            <!-- main end-->
+        </div>
+        <!-- container end-->
+        
+        <script src="/public/javascript/records/form.js"></script>
+        
+    </body>
+</html>

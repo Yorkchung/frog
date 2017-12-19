@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/public/css/index/i.css">
+                <script src="/resource/jquery/jquery-3.2.1.min.js"></script>
+                <script src="/public/javascript/i/init.js"></script>
+        <title>Importfmt</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="top">
+                <div class="nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/challenge">Challenge</a></li>
+                        <li class="dropdown">
+                            <!--arrange by category label: frog butterfly plant ... -->
+                            <a href="javascript:void(0)" class="dropbtn">Library</a>
+                            <div class="dropdown-content">
+                                <a href="/library/frog">青蛙</a><br/>
+                                <a href="/library/lepidoptera">蝶蛾</a><br/>
+                                <a href="/library/plant">植物</a><br/>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">Gallery</a>
+                            <div class="dropdown-content">
+                                <a href="/photo/frog">青蛙</a><br/>
+                                <a href="/photo/lepidoptera">蝶蛾</a><br/>
+                                <a href="/photo/plant">植物</a><br/>
+                            </div>
+                        </li>
+                        <li><a href="/record">Record</a></li>
+                        <li><a href="/upload">Upload</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main">
+                <div class="search">
+                    <div class="search-container">
+                        <form action="/search-records-by-keyword" id="search-form">
+                            <input type="text" placeholder="Search..." name="keyword">
+                            <select name="searchtype">
+                                <option value ="recordname" selected="selected">記錄標題</option>
+                                <option value ="organismname">物種名稱</option>
+                                <option value ="category">物種類別</option>
+                                <option value="season">季節</option>
+                                <option value="food">食物</option>
+                                <option value="address">地址</option>
+                                <option value="gps">座標</option>
+                            </select>
+                            <!--
+                            弄個時間搜尋按鈕
+                            跳輸入日期的欄位
+                            <label for="datefrom" id="datefrom-label" class="display-none">開始日期</label>
+                            <input type="date" name="datefrom" class="display-none">
+                            <label for="dateto" id="dateto-label" class="display-none">結束日期</label>
+                            <input type="date" name="dateto" class="display-none">
+                            -->
+                            <button type="submit"><img src="/resource/ionicons/ionicons-2.0.1/png/512/search.png"></button>
+                        </form>
+                    </div>
+                    <!-- search container end-->
+                </div>
+                <!-- search end-->
+                
+                <div class="search-result"></div>
+                <!-- search-result -->
+                
+                
+            </div>
+            <!-- main end-->
+        </div>
+        <!-- container end-->
+        
+        <script src="/public/javascript/i/form.js"></script>
+        
+    </body>
+</html>

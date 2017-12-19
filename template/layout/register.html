@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+        <meta charset="utf-8">
+        <script src="/resource/jquery/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <form action="/requestregister" id="register-form">
+                <label for="email">信箱</label>
+                <input type="email" id="email" name="email"><br/>
+                <label for="username">帳號</label>
+                <input type="text" id="username" name="username"><br/>
+                <label for="password">密碼</label>
+                <input type="password" id="password" name="password"><br/>
+                <button id="submit-register-button" type="submit">提交</button>
+                <button id="cancel-register-button" type="button">取消</button>
+            </form>
+        </div>
+        <script src="/public/javascript/register/register.js"></script>
+    </body>
+</html>

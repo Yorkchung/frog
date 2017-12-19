@@ -1,0 +1,63 @@
+<html>
+    <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" type="text/css" href="/public/css/library/library.css">
+            <script src="/resource/jquery/jquery-3.2.1.min.js"></script>
+            <script src="/public/javascript/library/init.js"></script>
+            <title>Importfmt</title>
+        </head>
+    <body>
+        <div class="container">
+            <div class="top">
+                <div class="bar">
+
+                </div>
+            </div>
+            <div class="main">
+                <div id="library-data" class="library-data">
+
+                </div>
+            </div>
+
+            <div class="bottom"></div>
+
+            <div id="deleteDataDiv" class="delete-data-div">
+                <form class="delete-data-form delete-data-form-animate" action="/delete-library-data" method="post" id="delete-data-form">
+                <input type="hidden" id="needDeleteDataID" name="needDeleteDataID">
+                <button id="submit-delete-button" type="submit">刪除</button>
+                <button id="cancel-delete-button" type="button">取消</button>
+                </form>
+            </div>
+            <!-- deleteDiv end-->
+
+            <div id="modifyDataDiv" class="modify-data-div">
+                <form id="modify-book-form" class="modify-data-form modify-data-form-animate">
+                    <input type="hidden" id="needModifyDataID" name="needModifyDataID">
+
+                    <label for="modifiedFamily">科目</label><br/>
+                    <input id="modifiedFamily" name="family"><br/>
+
+                    <label for="modifiedOrganismName">種類</label><br/>
+                    <input id="modifiedOrganismName" name="organismname"><br/>
+                    <!-- 記得後端的 species 也要跟著 organismname 變動-->
+
+                    性狀：<br/>
+                    <textarea name="status">
+
+                    </textarea><br/>
+
+                    棲地：<br/>
+                    <textarea name="habitat">
+
+                    </textarea>
+
+                    <button id="submit-modify-button" type="submit">提交</button>
+                    <button id="cancel-modify-button" type="button">取消</button>
+                </form>
+            </div>
+            <!-- modify-book-div end-->
+
+        </div>
+    </body>
+</html>

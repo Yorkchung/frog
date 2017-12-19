@@ -1,0 +1,14 @@
+遇到 Conflict：
+某A輸入99行時，99行為空，當某A在99行輸入了一些資料後，進行 push ，發生衝突，無法 push
+原因在於某A push 99行之前，某B已經 push 了99行
+由於某A在某B提交後尚未 pull 最新的程式，所以某A誤以為99行為空
+假設公司允許某A透過merge解決衝突，那麼某A此刻需 pull 下載最新的程式碼
+通常版本控制系統會提示 conflict，由某A決定是否須自動merge
+某A可在 pull 後，調整包含某B及某A輸入資料的的混合檔案
+調整後再 push
+https://backlog.com/git-tutorial/tw/intro/intro6_1.html
+https://backlog.com/git-tutorial/tw/intro/intro6_2.html
+
+測試用帳密：
+testun
+hellopw2017

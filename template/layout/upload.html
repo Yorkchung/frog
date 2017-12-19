@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Upload Record</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/public/css/upload/upload.css">
+        <script src="/resource/jquery/jquery-3.2.1.min.js"></script>
+    <!--
+        <meta name="keywords" content="???" />
+        <meta name="description" content="???" />
+        <meta property="og:title" content="???" />
+        <meta property="og:url" content="???" />
+    -->
+    </head>
+    <body>
+        <div class="container">
+            <div class="top">
+                
+            </div>
+            <!-- top end -->
+
+            <div class="main">
+                
+                <div class="left">
+                
+                </div>
+                <!-- left end -->
+
+                <div class="center">
+                    <div class="upload">
+                        <form action="/upload-record" method="post" class="upload-form" id="upload-form">
+                            
+                            <div class="input-box">
+                                
+                                <div class="choose-media-box">
+
+                                    <label for="name">遊記標題</label>
+                                    <input type="text" id="recordname" name="recordname"><br/>
+
+                                    <label for="name">生物名稱</label>
+                                    <input type="text" id="organismname" name="organismname"><br/>
+                                                                        
+                                    <label for="tag">標籤</label>
+                                    <input type="text" id="tag" name="tag"><br/>
+                                    
+                                    <!-- 英文版 跟 根據上個選項動態配置選項 有空再說 -->
+                                    界：<br/>
+                                    <select name="kingdom">
+                                      <option value="動物界">動物界</option>
+                                      <option value="植物界">植物界</option>
+                                      <option value="外星生物">外星生物</option>
+                                    </select><br/>
+                                    
+                                    門：<br/>
+                                    <select name="phylum">
+                                        <option value="脊索動物門">脊索動物門</option>
+                                        <option value="節肢動物門">節肢動物門</option>
+                                        <option value="反正不是動物">反正不是動物</option>
+                                    </select><br/>
+                                    
+                                    綱：<br/>
+                                    <select name="class">
+                                        <option value="兩棲綱">兩棲綱</option>
+                                        <option value="昆蟲綱"></option>
+                                        <option value="反正不是動物">反正不是動物</option>
+                                    </select><br/>
+                                    
+                                    目：<br/>
+                                    <select name="order">
+                                        <option value="無尾目">無尾目</option>
+                                        <option value="鱗翅目">鱗翅目</option>
+                                        <option value="反正不是動物">反正不是動物</option>
+                                    </select><br/>
+                                    
+                                    科：<br/>
+                                    <select name="family">
+                                        <option value="叉舌蛙科">叉舌蛙科</option>
+                                        <option value="彩蛙科">彩蛙科</option>
+                                        <option value="樹蛙科">樹蛙科</option>
+                                        <option value="樹蟾科">樹蟾科</option>
+                                        <option value="狹口蛙科">狹口蛙科</option>
+                                        <option value="盤舌蟾科">盤舌蟾科</option>
+                                        <option value="細趾蟾科">細趾蟾科</option>
+                                        <option value="蟾蜍科">蟾蜍科</option>
+                                        <option value="赤蛙科">赤蛙科</option>
+                                    </select><br/>
+                                    
+                                    屬：<br/>
+                                    <select name="genus">
+                                        <option value="虎紋蛙屬">虎紋蛙屬</option>
+                                        <option value="陸蛙屬">陸蛙屬</option>
+                                        <option value="曼蛙屬">曼蛙屬</option>
+                                        <option value="原指樹蛙屬">原指樹蛙屬</option>
+                                        <option value="樹蛙屬">樹蛙屬</option>
+                                        <option value="泛樹蛙屬">泛樹蛙屬</option>
+                                        <option value="溪樹蛙屬">溪樹蛙屬</option>
+                                        <option value="雨蛙屬">雨蛙屬</option>
+                                        <option value="姬蛙屬">姬蛙屬</option>
+                                        <option value="小姬蛙屬">小姬蛙屬</option>
+                                        <option value="鈴蟾屬">鈴蟾屬</option>
+                                        <option value="角花蟾屬">角花蟾屬</option>
+                                        <option value="蟾蜍屬">蟾蜍屬</option>
+                                        <option value="側褶蛙屬">側褶蛙屬</option>
+                                        <option value="大頭蛙屬">大頭蛙屬</option>
+                                        <option value="拇棘蛙屬">拇棘蛙屬</option>
+                                        <option value="水蛙屬">水蛙屬</option>
+                                        <option value="臭蛙屬">臭蛙屬</option>
+                                        <option value="蛙屬">蛙屬</option>
+                                    </select><br/>
+                                    
+                                    種：<br/>
+                                    <select name="species">
+                                        <option value="虎皮蛙">虎皮蛙</option>
+                                        <option value="海蛙">海蛙</option>
+                                        <option value="澤蛙">澤蛙</option>
+                                        <option value="馬達加斯加彩蛙">馬達加斯加彩蛙</option>
+                                        <option value="金蛙">金蛙</option>
+                                        <option value="綠彩蛙">綠彩蛙</option>
+                                        <option value="面天樹蛙">面天樹蛙</option>
+                                        <option value="艾氏樹蛙">艾氏樹蛙</option>
+                                        <option value="橙腹樹蛙">橙腹樹蛙</option>
+                                        <option value="台北樹蛙">台北樹蛙</option>
+                                        <option value="翡翠樹蛙">翡翠樹蛙</option>
+                                        <option value="諸羅樹蛙">諸羅樹蛙</option>
+                                        <option value="莫氏樹蛙">莫氏樹蛙</option>
+                                        <option value="布氏樹蛙">布氏樹蛙</option>
+                                        <option value="褐樹蛙">褐樹蛙</option>
+                                        <option value="日本樹蛙">日本樹蛙</option>
+                                        <option value="中國樹蟾">中國樹蟾</option>
+                                        <option value="黑蒙西氏小雨蛙">黑蒙西氏小雨蛙</option>
+                                        <option value="小雨蛙">小雨蛙</option>
+                                        <option value="巴氏小雨蛙">巴氏小雨蛙</option>
+                                        <option value="史丹吉氏小雨蛙">史丹吉氏小雨蛙</option>
+                                        <option value="朝鮮鈴蛙">朝鮮鈴蛙</option>
+                                        <option value="蘇利南角蛙">蘇利南角蛙</option>
+                                        <option value="南美角蛙">南美角蛙</option>
+                                        <option value="盤古蟾蜍">盤古蟾蜍</option>
+                                        <option value="福建大頭蛙">福建大頭蛙</option>
+                                        <option value="腹斑蛙">腹斑蛙</option>
+                                        <option value="豎琴蛙">豎琴蛙</option>
+                                        <option value="台北赤蛙">台北赤蛙</option>
+                                        <option value="拉都希氏蛙">拉都希氏蛙</option>
+                                        <option value="貢德氏赤蛙">貢德氏赤蛙</option>
+                                        <option value="斯文豪氏蛙">斯文豪氏蛙</option>
+                                        <option value="長腳赤蛙">長腳赤蛙</option>
+                                        <option value="梭德氏赤蛙">梭德氏赤蛙</option>
+                                    </select><br/>                                    
+                                    
+                                    年齡狀態：<br/>
+                                    <select name="stage">
+                                        <option value="幼年">幼年</option>
+                                        <option value="中年">中年</option>
+                                        <option value="老年">老年</option>
+                                    </select><br/>
+                                    
+                                    <!--
+                                    季節：<br/>
+                                    <select name="season">
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                    </select><br/>
+                                    season 出沒季節：？？？ 這個是根據幾號到幾號 還是 春夏秋冬 春夏 夏秋 秋冬 ......<br/>
+                                    -->
+                                    
+                                    性狀簡述<br/>
+                                    <textarea name="status"></textarea><br/>
+                                    
+                                    棲地<br/>
+                                    <textarea name="habitat"></textarea><br/>
+
+                                    備註<br/>
+                                    <textarea name="note"></textarea><br/>
+
+                                    <!--
+                                    測試 one name multi value<br/>
+                                    <input type="checkbox" name="dorame" value="dorame1" checked>蘋果
+                                    <input type="checkbox" name="dorame" value="dorame2">香蕉
+                                    <input type="checkbox" name="dorame" value="dorame3">櫻桃<br>
+                                    -->
+
+                                    <label class="upload-label" id="choose-photo" for="photos">
+                                        <img src="/resource/ionicons/ionicons-2.0.1/src/images.svg">
+                                        <input type="file"  class="none-display" id="photos" name="photos" multiple="multiple">
+                                        <!-- accept="image/jpg,image/jpeg,image/png" -->
+                                    </label>
+                                    <!--上傳mac那種沒副檔名的圖案會出錯ＱＱＱＱ-->
+                                    
+                                </div>
+                                
+                                <div class="submit-box">
+                                    <button type="submit" class="gogogo" id="gogogo" name="gogogo">Submit</button>
+                                </div>
+                                
+                            </div>
+                            
+                            <div id="preview-photo-div"></div>
+
+                        </form>
+                    </div>
+                    <!-- upload end -->
+                </div>
+                <!-- center end -->
+
+                <div class="right">
+                
+                </div>
+                <!-- right end -->
+                
+            </div>
+            <!-- main end -->
+
+        </div>
+        <!-- container end -->
+        
+        <script src="/public/javascript/upload/upload.js"></script>
+        
+    </body>
+</html>

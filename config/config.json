@@ -1,0 +1,15 @@
+{
+    "LogPath" : "/log/error.log",
+    "PublicPath" : "/public/",
+    "ResourcePath" : "/resource/",
+    "TemplatePath" : "/template/",
+    "StoragePath":"/storage/",
+    
+    "MySQLDatabase":"frog",
+    "MySQLUsername":"newuser",
+    "MySQLPassword":"newpassword",
+
+    "Addr" : "127.0.0.1",
+    "WriteTimeout" : 15,
+    "ReadTimeout:" : 15
+}
