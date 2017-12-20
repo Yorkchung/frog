@@ -1,278 +1,124 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
-	"strconv"
-	"strings"
 )
 
-func register(w http.ResponseWriter, r *http.Request) {
-	logined := verifyLoginStatus(r)
-	if r.Method == "POST" && logined == false {
-		r.ParseForm()
-		em := r.FormValue("email")
-		un := r.FormValue("username")
-		pw := r.FormValue("password")
-		emailFormatOK := filterEmail(em)
-		usernameFormatOK := filterUsername(un)
-		passwordFormatOK := filterPassword(pw)
-		catchFalse(emailFormatOK, "register email format err")
-		catchFalse(usernameFormatOK, "register userinfo format err")
-		catchFalse(passwordFormatOK, "register password format err")
-		storeAccount(em, un, pw)
-		success := storeSession(w, r, un, pw)
-		if success == true {
+func indexController(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/" {
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+			if r.Method == "GET" {
+				pushPrivateIndexPage(w, r)
+			}
+		} else {
+			if r.Method == "GET" {
+				pushPublicIndexPage(w, r)
+			}
+		}
+	}
+}
+
+func loginController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		pushLoginPage(w, r)
+	case "POST":
+		login(w, r)
+	}
+}
+
+func logoutController(w http.ResponseWriter, r *http.Request) {
+	logout(w, r)
+}
+
+func forgotController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		pushForgotPage(w, r)
+	case "POST":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == false {
+			forgot(w, r)
+		}
+	}
+}
+
+func registerController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == false {
+			pushRegisterPage(w, r)
+		} else {
 			http.Redirect(w, r, "/", 303)
 		}
-	}
-}
-
-func login(w http.ResponseWriter, r *http.Request) {
-	loginStatus := false
-	loginStatus = verifyLoginStatus(r)
-	if loginStatus == false {
-		if r.Method == "POST" {
-			r.ParseForm()
-			loginField := r.FormValue("account")
-			pw := r.FormValue("password")
-			isMail := classifyLoginField(loginField)
-			//fmt.Println(loginField, pw)
-			if isMail == true {
-
-			} else {
-				ok := verifyPasswordByUsername(loginField, pw)
-				if ok == true {
-					storeSession(w, r, loginField, pw)
-					loginStatus = true
-				}
-			}
-		}
-	}
-	p := LoginPage{LoginStatus: loginStatus}
-	b, _ := json.Marshal(p)
-	w.Write(b)
-}
-
-func logout(w http.ResponseWriter, r *http.Request) {
-	clearSession(w)
-	http.Redirect(w, r, "/", 303)
-}
-
-func forgot(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func requestAllRecords(w http.ResponseWriter, r *http.Request) {
-	record := getAllRecords()
-	b, _ := json.Marshal(record)
-	w.Write(b)
-}
-
-func searchRecordsByKeyword(w http.ResponseWriter, r *http.Request) {
-	logined := verifyLoginStatus(r)
-	if r.Method == "POST" && logined == true {
-		r.ParseForm()
-		//fmt.Println(r.Form)
-		searchtype := r.FormValue("searchtype")
-		keyword := r.FormValue("keyword")
-		switch searchtype {
-		case "recordname":
-			records := getRecordsByRecordName(keyword)
-			b, _ := json.Marshal(records)
-			w.Write(b)
-		case "organismname":
-			records := getRecordsByOrganismName(keyword)
-			b, _ := json.Marshal(records)
-			w.Write(b)
-		case "tag":
-			records := getRecordsByTag(keyword)
-			b, _ := json.Marshal(records)
-			w.Write(b)
-		case "address":
-			records := getRecordsByAddress(keyword)
-			b, _ := json.Marshal(records)
-			w.Write(b)
-		case "gps":
-			longitude := r.FormValue("longitude")
-			latitude := r.FormValue("latitude")
-			records := getRecordsByGPS(longitude, latitude)
-			b, _ := json.Marshal(records)
-			w.Write(b)
-		case "season":
-			records := getRecordsBySeason(keyword)
-			b, _ := json.Marshal(records)
-			w.Write(b)
-		case "daterange":
-			datefrom := r.FormValue("datefrom")
-			dateto := r.FormValue("dateto")
-			records := getRecordsByDateRange(datefrom, dateto)
-			fmt.Println(records)
-			b, _ := json.Marshal(records)
-			w.Write(b)
+	case "POST":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == false {
+			register(w, r)
 		}
 	}
 }
 
-func searchRecordsByOrganismName(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		organismName := r.FormValue("organismname")
-		records := getRecordsByOrganismName(organismName)
-		b, _ := json.Marshal(records)
-		w.Write(b)
+func consoleController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+			pushConsolePage(w, r)
+		} else {
+			http.Redirect(w, r, "/", 303)
+		}
+	case "POST":
 	}
 }
 
-func searchRecordByRecordID(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			r.ParseForm()
-			record := getRecordByRecordID(r.Form.Get("recordid"))
-			b, _ := json.Marshal(record)
-			w.Write(b)
+func uploadController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+			pushUploadPage(w, r)
+		} else {
+			http.Redirect(w, r, "/login", 303)
 		}
 	}
 }
 
-func searchLibrary(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func searchLibraryByLabel(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	label := r.FormValue("label")
-	records := getLibraryDataByLabel(label)
-	//fmt.Println(records)
-	b, _ := json.Marshal(records)
-	w.Write(b)
-}
-
-func searchLibraryBySpecies(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	species := r.FormValue("species")
-	records := getLibraryDataBySpecies(species)
-	//fmt.Println(records)
-	b, _ := json.Marshal(records)
-	w.Write(b)
-
-}
-
-func uploadLibraryWithCSV(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			successUpload := false
-			cu, _ := r.Cookie("username")
-			unFormatOK := filterUsername(cu.Value)
-			if unFormatOK == true {
-				UID, getUIDOK := getUIDByUsername(cu.Value)
-				catchFalse(getUIDOK, "get uid by username err")
-				successUpload = storeLibraryWithCSV(r, UID)
-			}
-			p := UploadPage{UploadStatus: successUpload}
-			b, _ := json.Marshal(p)
-			w.Write(b)
+func recordController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		pushRecordPage(w, r)
+	case "POST":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+			uploadRecord(w, r)
 		}
 	}
 }
 
-func uploadRecord(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			cu, _ := r.Cookie("username")
-			unFormatOK := filterUsername(cu.Value)
-			if unFormatOK == true {
-				UID, getUIDOK := getUIDByUsername(cu.Value)
-				catchFalse(getUIDOK, "get uid by username err")
-				storeRecord(w, r, UID)
-			}
+func recordsController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		pushRecordsPage(w, r)
+	case "POST":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+
 		}
 	}
 }
 
-func modifyRecordByRecordID(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			successUpdate := false
-
-			successUpdate = alterRecordByRecordID(r)
-
-			p := UploadPage{UploadStatus: successUpdate}
-			b, _ := json.Marshal(p)
-			w.Write(b)
-		}
+func libraryController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		pushLibraryPage(w, r)
+	case "POST":
+		searchLibraryByLabel(w, r)
 	}
 }
 
-func modifyRecordPhotosByRecordID(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			l := LibraryPage{}
-			b, _ := json.Marshal(l)
-			w.Write(b)
-		}
-	}
-}
+func galleryController(w http.ResponseWriter, r *http.Request) {
 
-func modifyLibraryData(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			fmt.Println("modifyLibraryData")
-		}
-	}
-}
-
-func deleteLibraryData(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			fmt.Println("deleteLibraryData")
-		}
-	}
-}
-
-func deleteRecordByRecordID(w http.ResponseWriter, r *http.Request) {
-	loginStatus := verifyLoginStatus(r)
-	if loginStatus == true {
-		if r.Method == "POST" {
-			r.ParseForm()
-			removeRecordByRecordID(r.Form.Get("recordid"))
-			// need return json tall ok or not, and ajax reload
-		}
-	}
-}
-
-func deleteRecordPhotosByPhotoID() {
-
-}
-
-func parseCoordinateString(val string) float64 {
-	chunks := strings.Split(val, ",")
-	hours, _ := strconv.ParseFloat(strings.TrimSpace(chunks[0]), 64)
-	minutes, _ := strconv.ParseFloat(strings.TrimSpace(chunks[1]), 64)
-	seconds, _ := strconv.ParseFloat(strings.TrimSpace(chunks[2]), 64)
-	return hours + (minutes / 60) + (seconds / 3600)
-}
-
-func parseCoordinate(latitudeValue, latitudePosition, longitudeValue, longitudePosition string) (string, string) {
-	lati := parseCoordinateString(latitudeValue)
-	long := parseCoordinateString(longitudeValue)
-
-	if latitudePosition == "S" {
-		lati *= -1
-	}
-
-	if longitudePosition == "W" {
-		long *= -1
-	}
-	la := strconv.FormatFloat(lati, 'f', 6, 64)
-	lo := strconv.FormatFloat(long, 'f', 6, 64)
-	return la, lo
 }

@@ -61,3 +61,18 @@ $("#search-form").submit(function(e) {
     });
 });
 
+
+$( "#library-frog" ).click(function() {
+    $.get( "/library", { label: "frog"} );
+});
+
+$( "#library-lepidoptera" ).click(function() {
+    $.get( "/library", { label: "lepidoptera"} );
+});
+
+$( "#library-plant" ).click(function() {
+    $.get( "/library", { label: "plant"} );
+});
+
+
+

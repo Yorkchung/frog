@@ -11,3 +11,51 @@
 [Error] 2017/12/18 21:12:41 record.go:7: open csv file err
 [Error] 2017/12/18 21:12:41 record.go:7: open csv file err
 [Error] 2017/12/18 23:02:37 record.go:7: connectRedisErr
+[Error] 2017/12/19 12:39:54 record.go:7: ListenAndServe err
+[Error] 2017/12/19 12:40:25 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:25 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:40:38 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:42:00 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 12:42:00 record.go:7: query library id from comment with mysql error
+[Error] 2017/12/19 14:04:50 record.go:7: get session from redis err
+[Error] 2017/12/19 14:04:53 record.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
+[Error] 2017/12/20 13:19:12 log.go:7: get session from redis err

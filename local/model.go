@@ -279,6 +279,44 @@ func getRecordsByTag(tag string) Records {
 	return records
 }
 
+func getLibraryData() Library {
+	dataIDs, library := []int{}, Library{}
+	library.LibraryDatas = make(map[int]LibraryData)
+
+	idrows, queryErr := db.Query("SELECT id FROM library")
+	checkErr(queryErr, "query library id from comment with mysql error")
+	defer idrows.Close()
+	for idrows.Next() {
+		var tmp int
+		scanErr := idrows.Scan(&tmp)
+		checkErr(scanErr, "scan library id from comment with mysql error")
+		dataIDs = append(dataIDs, tmp)
+	}
+
+	for index, id := range dataIDs {
+		organismname, family, food, season, status, habitat, note := "", "", "", "", "", "", ""
+		db.QueryRow("SELECT organismname FROM library WHERE id = ?", id).Scan(&organismname)
+		db.QueryRow("SELECT family FROM library WHERE id = ?", id).Scan(&family)
+		db.QueryRow("SELECT food FROM library WHERE id = ?", id).Scan(&food)
+		db.QueryRow("SELECT season FROM library WHERE id = ?", id).Scan(&season)
+		db.QueryRow("SELECT status FROM library WHERE id = ?", id).Scan(&status)
+		db.QueryRow("SELECT habitat FROM library WHERE id = ?", id).Scan(&habitat)
+		db.QueryRow("SELECT note FROM library WHERE id = ?", id).Scan(&note)
+
+		ld := LibraryData{
+			ID:           id,
+			OrganismName: organismname,
+			Family:       family,
+			Food:         food,
+			Season:       season,
+			Status:       status,
+			Habitat:      habitat,
+			Note:         note}
+		library.LibraryDatas[index] = ld
+	}
+	return library
+}
+
 func getLibraryDataByLabel(label string) Library {
 	dataIDs, library := []int{}, Library{}
 	library.LibraryDatas = make(map[int]LibraryData)

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.18, for macos10.12 (x86_64)
 --
 -- Host: localhost    Database: frog
 -- ------------------------------------------------------
--- Server version	5.7.20
+-- Server version	5.7.18
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -125,7 +125,7 @@ CREATE TABLE `record` (
   `note` text,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +134,7 @@ CREATE TABLE `record` (
 
 LOCK TABLES `record` WRITE;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
-INSERT INTO `record` VALUES (1,1,'他還沒長大','未來的蝴蝶',NULL,NULL,'乖','動物界','脊索動物門','兩棲綱','無尾目','叉舌蛙科','虎紋蛙屬','虎皮蛙',NULL,'幼年',NULL,'無限可能',NULL,'我們學校','界門綱目科屬種是錯的','2017-12-18 19:48:19'),(2,1,'曬桌布','桌布們',NULL,NULL,'抱歉','動物界','脊索動物門','兩棲綱','無尾目','叉舌蛙科','虎紋蛙屬','虎皮蛙',NULL,'幼年',NULL,'好看',NULL,'相簿','沒引用不能亂散播','2017-12-18 19:49:19'),(3,1,'再補幾張測試一下','你懂得',NULL,NULL,'啊哈','動物界','脊索動物門','兩棲綱','無尾目','叉舌蛙科','虎紋蛙屬','虎皮蛙',NULL,'幼年',NULL,'好像是牆壁',NULL,'','這有ＧＰＳ了吧','2017-12-18 19:52:18');
+INSERT INTO `record` VALUES (1,1,'他還沒長大','未來的蝴蝶',NULL,NULL,'乖','動物界','脊索動物門','兩棲綱','無尾目','叉舌蛙科','虎紋蛙屬','虎皮蛙',NULL,'幼年',NULL,'無限可能',NULL,'我們學校','界門綱目科屬種是錯的','2017-12-18 19:48:19'),(2,1,'曬桌布','桌布們',NULL,NULL,'抱歉','動物界','脊索動物門','兩棲綱','無尾目','叉舌蛙科','虎紋蛙屬','虎皮蛙',NULL,'幼年',NULL,'好看',NULL,'相簿','沒引用不能亂散播','2017-12-18 19:49:19'),(3,1,'再補幾張測試一下','你懂得',NULL,NULL,'啊哈','動物界','脊索動物門','兩棲綱','無尾目','叉舌蛙科','虎紋蛙屬','虎皮蛙',NULL,'幼年',NULL,'好像是牆壁',NULL,'','這有ＧＰＳ了吧','2017-12-18 19:52:18'),(4,1,'就這樣吧','虎皮蛙',NULL,NULL,'','動物界','脊索動物門','兩棲綱','無尾目','叉舌蛙科','虎紋蛙屬','虎皮蛙',NULL,'幼年',NULL,'是隻蛙',NULL,'島上','無','2017-12-20 13:18:36');
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +157,7 @@ CREATE TABLE `photo` (
   `shootdatetime` datetime DEFAULT NULL,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +166,7 @@ CREATE TABLE `photo` (
 
 LOCK TABLES `photo` WRITE;
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-INSERT INTO `photo` VALUES (1,1,1,'sd18qzf7qxn2a27t9ypwv86272sknz82azw.jpg','IMG_20170620_110732.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:48:19'),(2,1,2,'k5hm4gwyvihtpug5kpnq1ejqcyf4yrotlwt.jpg','alex-holyoake-113856.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(3,1,2,'24iwjv2pu4jteti5xq1z4cvitweiip9zwti.jpg','alex-jodoin-246078.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(4,1,2,'klsqtg4xprdw7zbwieiyc8b3y1nzjl76rz1.jpg','jessie-bell-16912.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(5,1,2,'ybnu14pazmmqtkkpdtnbg5eow9vf7rhjjkz.jpg','photo-1440688807730-73e4e2169fb8.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(6,1,2,'2q1zvroesrcunf67ihetlig268cz89w3duj.jpg','photo-1448375240586-882707db888b.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(7,1,3,'fjknow3z15jf3jg76q5vk181dq5fuxxwsty.jpg','IMG20171218195023.jpg','120.970437','23.962765',NULL,NULL,'2017-12-18 19:52:18');
+INSERT INTO `photo` VALUES (1,1,1,'sd18qzf7qxn2a27t9ypwv86272sknz82azw.jpg','IMG_20170620_110732.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:48:19'),(2,1,2,'k5hm4gwyvihtpug5kpnq1ejqcyf4yrotlwt.jpg','alex-holyoake-113856.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(3,1,2,'24iwjv2pu4jteti5xq1z4cvitweiip9zwti.jpg','alex-jodoin-246078.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(4,1,2,'klsqtg4xprdw7zbwieiyc8b3y1nzjl76rz1.jpg','jessie-bell-16912.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(5,1,2,'ybnu14pazmmqtkkpdtnbg5eow9vf7rhjjkz.jpg','photo-1440688807730-73e4e2169fb8.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(6,1,2,'2q1zvroesrcunf67ihetlig268cz89w3duj.jpg','photo-1448375240586-882707db888b.jpg',NULL,NULL,NULL,NULL,'2017-12-18 19:49:19'),(7,1,3,'fjknow3z15jf3jg76q5vk181dq5fuxxwsty.jpg','IMG20171218195023.jpg','120.970437','23.962765',NULL,NULL,'2017-12-18 19:52:18'),(8,1,4,'f5twa8byj53efb1f5l8m7ch2x7g2vn4ajns.jpg','IMG20171214120506.jpg','120.927252','23.952210',NULL,NULL,'2017-12-20 13:18:36');
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -179,4 +179,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-18 21:18:01
+-- Dump completed on 2017-12-20 15:58:54

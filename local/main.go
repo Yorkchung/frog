@@ -37,45 +37,21 @@ func main() {
 	defer rdb.Close()
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", initDynamic)
-	mux.HandleFunc("/login", initLoginPage)
-	mux.HandleFunc("/forgot", initForgotPage)
-	mux.HandleFunc("/register", initRegisterPage)
-	mux.HandleFunc("/console", initConsolePage)
-	mux.HandleFunc("/records", initRecordsPage)
-	mux.HandleFunc("/upload", initUploadPage)
-
-	mux.HandleFunc("/test", initTestPage)
-	mux.HandleFunc("/posttest", test)
-
-	mux.HandleFunc("/requestregister", register)
-	mux.HandleFunc("/requestforgot", forgot)
-	mux.HandleFunc("/requestlogin", login)
-	mux.HandleFunc("/logout", logout)
-
-	mux.HandleFunc("/upload-record", uploadRecord)
-	mux.HandleFunc("/upload-library-with-csv", uploadLibraryWithCSV)
-
-	mux.HandleFunc("/modify-library-data", modifyLibraryData)
-	mux.HandleFunc("/delete-library-data", deleteLibraryData)
-
-	mux.HandleFunc("/request-all-records", requestAllRecords)
-	mux.HandleFunc("/search-records-by-keyword", searchRecordsByKeyword)
-	mux.HandleFunc("/search-record-by-record-id", searchRecordByRecordID)
-	mux.HandleFunc("/search-records-specify-organismname", searchRecordsByOrganismName)
-
-	mux.HandleFunc("/search-library", searchLibrary)
-	mux.HandleFunc("/search-library-by-label", searchLibraryByLabel)
+	mux.HandleFunc("/", indexController)
+	mux.HandleFunc("/login", loginController)
+	mux.HandleFunc("/logout", logoutController)
+	mux.HandleFunc("/forgot", forgotController)
+	mux.HandleFunc("/register", registerController)
+	mux.HandleFunc("/console", consoleController)
+	mux.HandleFunc("/upload", uploadController)
+	mux.HandleFunc("/record", recordController)
+	mux.HandleFunc("/records", recordsController)
+	mux.HandleFunc("/library", libraryController)
+	mux.HandleFunc("/gallery", galleryController)
 
 	mux.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir(frogConfig.PublicPath))))
 	mux.Handle("/resource/", http.StripPrefix("/resource/", http.FileServer(http.Dir(frogConfig.ResourcePath))))
 	mux.Handle("/storage/", http.StripPrefix("/storage/", http.FileServer(http.Dir(frogConfig.StoragePath))))
-
-	/*
-		if _, err := os.Stat(frogConfig.StoragePath + "photo/"); os.IsNotExist(err) {
-			os.Mkdir(frogConfig.StoragePath+"photo/", 777)
-		}
-	*/
 
 	err := http.ListenAndServe(":80", mux)
 	checkErr(err, "ListenAndServe err")
