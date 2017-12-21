@@ -172,7 +172,16 @@ func galleryController(w http.ResponseWriter, r *http.Request) {
 func galleryDataController(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
+		getGalleryByKeyword(w, r)
+	case "POST":
 
+	}
+}
+
+func photoDataController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		getPhoto(w, r)
 	case "POST":
 
 	}

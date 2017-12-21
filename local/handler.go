@@ -189,3 +189,15 @@ func modifyLibraryData(w http.ResponseWriter, r *http.Request) {
 func deleteLibraryData(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("deleteLibraryData")
 }
+
+func getGalleryByKeyword(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func getPhoto(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	photoID := r.FormValue("photoid")
+	photo := searchPhotoByPhotoID(photoID)
+	b, _ := json.Marshal(photo)
+	w.Write(b)
+}

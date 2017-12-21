@@ -871,3 +871,8 @@ func searchLibraryDataBySpecies(species string) Library {
 	}
 	return library
 }
+
+func searchPhotoByPhotoID(photoID string) Photo {
+	photo := Photo{}
+	return photo
+}

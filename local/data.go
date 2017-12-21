@@ -88,6 +88,11 @@ type Records struct {
 	Records map[int]Record
 }
 
+type Photo struct {
+	PhotoID  string
+	PhotoSrc string
+}
+
 func loadPrivateIndexData(w http.ResponseWriter, r *http.Request) PrivateIndex {
 	l := PrivateIndex{}
 	cu, _ := r.Cookie("username")
