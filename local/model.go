@@ -780,7 +780,7 @@ func searchLibraryDataBySpecies(species string) Library {
 
 func searchPhotosByTag(tag string) Gallery {
 	organismNameSlice, gallery := []string{}, Gallery{}
-	gallery.GroupByTag = make(map[string]Records)
+	gallery.GroupByTag = make(map[string][]string)
 
 	nameRows, queryErr := db.Query("SELECT organismname FROM record WHERE tag=?", tag)
 	checkErr(queryErr, "query organismname from record with mysql error")
@@ -796,57 +796,25 @@ func searchPhotosByTag(tag string) Gallery {
 		recordIDs, records := []int{}, Records{}
 		records.Records = make(map[int]Record)
 		idrows, queryErr := db.Query("SELECT id FROM record WHERE organismname=?", organismName)
-		checkErr(queryErr, "query organis id from record with mysql error")
+		checkErr(queryErr, "query record id from record with mysql error")
 		defer idrows.Close()
 		for idrows.Next() {
 			var tmp int
 			scanErr := idrows.Scan(&tmp)
-			checkErr(scanErr, "scan organis id from record with mysql error")
+			checkErr(scanErr, "scan record id from record with mysql error")
 			recordIDs = append(recordIDs, tmp)
 		}
 
-		for index, id := range recordIDs {
-			r := Record{}
-			r.PhotoSrc = make(map[int]string)
+		for _, id := range recordIDs {
 			pathRows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
 			checkErr(queryErr, "query photo path from record with mysql error")
 			defer pathRows.Close()
-			i := 0
 			for pathRows.Next() {
 				var tmp string
 				scanErr := pathRows.Scan(&tmp)
 				checkErr(scanErr, "scan photo path from record with mysql error")
-				r.PhotoSrc[i] = tmp
-				i++
+				gallery.GroupByTag[organismName] = append(gallery.GroupByTag[organismName], tmp)
 			}
-
-			r.PhotoLatitude = make(map[int]string)
-			latitudeRows, queryErr := db.Query("SELECT latitude FROM photo WHERE recordid = ?", id)
-			checkErr(queryErr, "query photo latitude from record with mysql error")
-			defer latitudeRows.Close()
-			j := 0
-			for latitudeRows.Next() {
-				var tmp string
-				scanErr := latitudeRows.Scan(&tmp)
-				checkErr(scanErr, "scan photo latitude from record with mysql error")
-				r.PhotoLatitude[i] = tmp
-				j++
-			}
-
-			r.PhotoLongitude = make(map[int]string)
-			longitudeRows, queryErr := db.Query("SELECT longitude FROM photo WHERE recordid = ?", id)
-			checkErr(queryErr, "query photo longitude from record with mysql error")
-			defer longitudeRows.Close()
-			k := 0
-			for longitudeRows.Next() {
-				var tmp string
-				scanErr := longitudeRows.Scan(&tmp)
-				checkErr(scanErr, "scan photo longitude from record with mysql error")
-				r.PhotoLongitude[i] = tmp
-				k++
-			}
-			records.Records[index] = r
-			gallery.GroupByTag[organismName] = records
 		}
 	}
 	return gallery

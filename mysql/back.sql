@@ -95,38 +95,6 @@ INSERT INTO `library` VALUES (1,'虎皮蛙','frog',NULL,NULL,NULL,NULL,'叉舌�
 UNLOCK TABLES;
 
 --
--- Table structure for table `photo`
---
-
-DROP TABLE IF EXISTS `photo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `photo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL,
-  `recordid` int(11) NOT NULL,
-  `path` varchar(200) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  `longitude` varchar(20) DEFAULT NULL,
-  `latitude` varchar(20) DEFAULT NULL,
-  `altitude` varchar(20) DEFAULT NULL,
-  `shootdatetime` datetime DEFAULT NULL,
-  `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `photo`
---
-
-LOCK TABLES `photo` WRITE;
-/*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-INSERT INTO `photo` VALUES (1,1,1,'p6k2hnj6l69rjsphx72psxn58wckfqqvexj.png','Screen Shot 2017-12-21 at 12.49.55.png',NULL,NULL,NULL,NULL,'2017-12-21 12:50:07'),(2,1,2,'g24lmyhiwwdzqxoxqy7s49btawne5nnn91d.jpg','IMG20171214120506.jpg','120.927252','23.952210',NULL,NULL,'2017-12-21 15:09:30'),(3,1,2,'2rw3blzpajgejbpe9ujrzavgmqwj4ltdu7p.png','Screen Shot 2017-12-21 at 12.49.55.png',NULL,NULL,NULL,NULL,'2017-12-21 15:09:30');
-/*!40000 ALTER TABLE `photo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `record`
 --
 
@@ -156,7 +124,7 @@ CREATE TABLE `record` (
   `note` text,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,8 +133,40 @@ CREATE TABLE `record` (
 
 LOCK TABLES `record` WRITE;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
-INSERT INTO `record` VALUES (1,1,'莫氏青蛙',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','測試',NULL,'島上','無','2017-12-21 12:50:07'),(2,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','冬季','測',NULL,'島','嗯哼','2017-12-21 15:09:30');
+INSERT INTO `record` VALUES (1,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','抖',NULL,'瑞','咪','2017-12-22 00:23:00'),(2,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','一',NULL,'二','三','2017-12-22 00:23:14'),(3,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','啦',NULL,'囉','咧','2017-12-22 00:23:35');
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `photo`
+--
+
+DROP TABLE IF EXISTS `photo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `photo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `recordid` int(11) NOT NULL,
+  `path` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `longitude` varchar(20) DEFAULT NULL,
+  `latitude` varchar(20) DEFAULT NULL,
+  `altitude` varchar(20) DEFAULT NULL,
+  `shootdatetime` datetime DEFAULT NULL,
+  `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `photo`
+--
+
+LOCK TABLES `photo` WRITE;
+/*!40000 ALTER TABLE `photo` DISABLE KEYS */;
+INSERT INTO `photo` VALUES (1,1,1,'1dph38zheoqqpo8w8a81vwzam6i35hippa5.jpg','0.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:00'),(2,1,2,'w4ko5mm14mt62svp9qtvdkoha51h95eu327.jpg','1.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:14'),(3,1,2,'fca1a48ftmto3ot4yojvj4fd89u1gy8v78v.jpg','2.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:14'),(4,1,2,'3e9f526mskbd81u6tr2akv1zl486kmex7cl.jpg','3.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:14'),(5,1,3,'jpbu1zmqdm74e51s219wt6ru3p6f8gyllte.jpg','4.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:35'),(6,1,3,'thpu19xtenuqdflc794addo3reb6f2m9kwm.jpg','5.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:35'),(7,1,3,'p4gduzcyhy7kdh8wpedvbcow6xnlym3wch1.jpg','6.jpg','120.970437','23.962765',NULL,NULL,'2017-12-22 00:23:35');
+/*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -178,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-21 15:50:57
+-- Dump completed on 2017-12-22  0:26:21

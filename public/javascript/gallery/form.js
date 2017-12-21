@@ -5,6 +5,7 @@ $( "#records-frog" ).click(function(e) {
         data: { searchtype: "tag", keyword:"frog" }
     }).done(function( searchResult ) {
         var result = $.parseJSON(searchResult);
+        console.log(result)
         //console.log(result);
         //console.log(result.GroupByTag);
         var HTML = "<div>";
@@ -12,19 +13,6 @@ $( "#records-frog" ).click(function(e) {
         jQuery.each(result.GroupByTag, function(name) {
             //console.log(name); //莫氏樹蛙
             HTML += "<tr><td class='dataOrganismName'>" + "<button class='showAlbum' value='" + name + "' >" + name + "</button></td></tr>";
-            /*
-            jQuery.each(result.GroupByTag[name], function(galleryKey, records) {
-                //console.log(galleryKey);
-                //console.log(records); //莫氏樹蛙的每筆記錄
-                jQuery.each(records, function(recordID, record) {
-                    //console.log(recordID); //莫氏樹蛙的每筆記錄的ID
-                    jQuery.each(record["PhotoSrc"], function(photoID, PhotoSrc) {
-                        console.log(photoID); //該記錄當中圖片的ID
-                        console.log(PhotoSrc); //該記錄當中圖片的位址
-                    });
-                });
-            });
-            */
         });
         HTML += "</tbody></table>";
         HTML += "</div></br>";
@@ -32,35 +20,47 @@ $( "#records-frog" ).click(function(e) {
         $('#records-data').prepend(HTML);
         $(".showAlbum").click(function(e) {
             name = $(this).val();
-            //console.log(name);
             imgDivHTML = "";
-            jQuery.each(result.GroupByTag[name], function(galleryKey, records) {
-                //console.log(galleryKey);
-                //console.log(records); //莫氏樹蛙的每筆記錄
-                imgDivHTML += "<div class='single-album-div'>";
-                imgDivHTML += "<ul>";
-                jQuery.each(records, function(recordID, record) {
-                    //console.log(recordID); //莫氏樹蛙的每筆記錄的ID
-                    jQuery.each(record["PhotoSrc"], function(photoID, PhotoSrc) {
-                        imgDivHTML += "<li>";
-                        imgDivHTML += "<img src='/storage/photo/" + PhotoSrc + "'>";
-                        imgDivHTML += "</li>";
-                        //console.log(photoID); //該記錄當中圖片的ID
-                        //console.log(PhotoSrc); //該記錄當中圖片的位址
-                    });
-                    //imgDivHTML += "<button class='getRecord' value='" + recordID + "' >來自</button>";
-                });
-                imgDivHTML += "</ul>";
-                imgDivHTML += "</div>";
-                $('#album').prepend(imgDivHTML);
-                $("#album div ul li").first().addClass('selected');
+            jQuery.each(result.GroupByTag[name], function(index, photoSrc) {
+                //console.log(photoSrc);
+                imgDivHTML += "<li><img src='/storage/photo/" + photoSrc + "'></li>";
+                $('#album-ul').prepend(imgDivHTML);
             });
-            $('#album').show();
+            $('#album').show().css('display', 'flex');
+            $(".single-album-div ul li").first().addClass('selected');
 
-                //$('#album').hide();
-
+            $(".next").click(function(){
+                if ($(".album-ul li:visible").next().length != 0)
+                    $(".album-ul li:visible").next().show().prev().hide();
+                else {
+                    $(".album-ul li:visible").hide();
+                    $(".album-ul li:first").show();
+                }
+                //return false;
+            });
+        
+            $(".prev").click(function(){
+                if ($(".album-ul li:visible").prev().length != 0)
+                    $(".album-ul li:visible").prev().show().next().hide();
+                else {
+                    $(".album-ul li:visible").hide();
+                    $(".album-ul li:last").show();
+                }
+                //return false;
+            });
+            /*
+            $( ".next" ).click(function(e) {
+                $('.selected').addClass('tmp');
+                $('.selected').removeClass( ".selected" )
+                $('.tmp').hide();
+                $('.tmp').next().show();
+                $('.tmp').next().addClass('selected');
+                $('.tmp').removeClass( ".tmp" )
+            });
+            $( ".prev" ).click(function(e) {
+            });
+            */
         });
-
     });
 });
 
@@ -85,3 +85,8 @@ $( "#records-plant" ).click(function(e) {
         console.log(result);
     });
 });
+
+$( "#close-album-div-button" ).click(function(e) {
+    $( "#album" ).hide();
+});
+
