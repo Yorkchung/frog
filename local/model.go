@@ -572,9 +572,8 @@ func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
 
 	form := r.MultipartForm
 	fmt.Println(form)
-	recordName := form.Value["recordname"][0]
 	organismName := form.Value["organismname"][0]
-	result, storeRecordErr := db.Exec("INSERT INTO record SET userid=?, recordname=?, organismname=?, createtime=CURRENT_TIMESTAMP", UID, recordName, organismName)
+	result, storeRecordErr := db.Exec("INSERT INTO record SET userid=?, organismname=?, createtime=CURRENT_TIMESTAMP", UID, organismName)
 	fmt.Println(storeRecordErr)
 	if storeRecordErr == nil {
 		id, getRecordIDErr := result.LastInsertId()
@@ -582,7 +581,7 @@ func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
 			recordID := strconv.FormatInt(id, 10)
 			//fmt.Println(recordID)
 			for key, value := range r.MultipartForm.Value {
-				if key == "recordname" || key == "organismname" || key == "photos" {
+				if key == "organismname" || key == "photos" {
 					continue
 				}
 				//fmt.Println(key, value)
