@@ -89,8 +89,17 @@ type Records struct {
 }
 
 type Photo struct {
+	RecordID string
 	PhotoID  string
 	PhotoSrc string
+}
+
+type Photos struct {
+	Photos map[int]Photo
+}
+
+type Gallery struct {
+	GroupByTag map[string]Records //物種名:有該物種名的記錄
 }
 
 func loadPrivateIndexData(w http.ResponseWriter, r *http.Request) PrivateIndex {

@@ -92,104 +92,21 @@ func searchUsernameByUsername(un string) (string, bool) {
 	return u, exist
 }
 
-func searchRecordsByRecordName(recordName string) Records {
-	fmt.Println(recordName)
-	recordIDs, records := []int{}, Records{}
-	records.Records = make(map[int]Record)
-	idrows, queryErr := db.Query("SELECT id FROM record WHERE recordname=?", recordName)
-	checkErr(queryErr, "query organis id from comment with mysql error")
-	defer idrows.Close()
-	for idrows.Next() {
-		var tmp int
-		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan organis id from comment with mysql error")
-		recordIDs = append(recordIDs, tmp)
-	}
-
-	for index, id := range recordIDs {
-		recordname, organismname, food, stage, season, status, habitat, note, createTime := "", "", "", "", "", "", "", "", ""
-		db.QueryRow("SELECT recordname FROM record WHERE id = ?", id).Scan(&recordname)
-		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
-		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
-		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
-		db.QueryRow("SELECT season FROM record WHERE id = ?", id).Scan(&season)
-		db.QueryRow("SELECT status FROM record WHERE id = ?", id).Scan(&status)
-		db.QueryRow("SELECT habitat FROM record WHERE id = ?", id).Scan(&habitat)
-		db.QueryRow("SELECT note FROM record WHERE id = ?", id).Scan(&note)
-		db.QueryRow("SELECT createtime FROM record WHERE id = ?", id).Scan(&createTime)
-
-		r := Record{
-			ID:           id,
-			RecordName:   recordname,
-			OrganismName: organismname,
-			Food:         food,
-			Stage:        stage,
-			Season:       season,
-			Status:       status,
-			Habitat:      habitat,
-			Note:         note,
-			CrateTime:    createTime}
-		r.PhotoSrc = make(map[int]string)
-		pathRows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo path from comment with mysql error")
-		defer pathRows.Close()
-		i := 0
-		for pathRows.Next() {
-			var tmp string
-			scanErr := pathRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo path from comment with mysql error")
-
-			r.PhotoSrc[i] = tmp
-			i++
-		}
-
-		r.PhotoLatitude = make(map[int]string)
-		latitudeRows, queryErr := db.Query("SELECT latitude FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo latitude from comment with mysql error")
-		defer latitudeRows.Close()
-		j := 0
-		for latitudeRows.Next() {
-			var tmp string
-			scanErr := latitudeRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo latitude from comment with mysql error")
-			r.PhotoLatitude[i] = tmp
-			j++
-		}
-
-		r.PhotoLongitude = make(map[int]string)
-		longitudeRows, queryErr := db.Query("SELECT longitude FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo longitude from comment with mysql error")
-		defer longitudeRows.Close()
-		k := 0
-		for longitudeRows.Next() {
-			var tmp string
-			scanErr := longitudeRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo longitude from comment with mysql error")
-			r.PhotoLongitude[i] = tmp
-			k++
-		}
-		records.Records[index] = r
-	}
-	return records
-}
-
 func searchRecordsByOrganismName(organismName string) Records {
-	fmt.Println(organismName)
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
 	idrows, queryErr := db.Query("SELECT id FROM record WHERE organismname=?", organismName)
-	checkErr(queryErr, "query organis id from comment with mysql error")
+	checkErr(queryErr, "query organis id from record with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan organis id from comment with mysql error")
+		checkErr(scanErr, "scan organis id from record with mysql error")
 		recordIDs = append(recordIDs, tmp)
 	}
 
 	for index, id := range recordIDs {
-		recordname, organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
-		db.QueryRow("SELECT recordname FROM record WHERE id = ?", id).Scan(&recordname)
+		organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
 		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
 		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
 		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
@@ -200,7 +117,6 @@ func searchRecordsByOrganismName(organismName string) Records {
 
 		r := Record{
 			ID:           id,
-			RecordName:   recordname,
 			OrganismName: organismname,
 			Food:         food,
 			Stage:        stage,
@@ -210,39 +126,39 @@ func searchRecordsByOrganismName(organismName string) Records {
 			Note:         note}
 		r.PhotoSrc = make(map[int]string)
 		pathRows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo path from comment with mysql error")
+		checkErr(queryErr, "query photo path from record with mysql error")
 		defer pathRows.Close()
 		i := 0
 		for pathRows.Next() {
 			var tmp string
 			scanErr := pathRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo path from comment with mysql error")
+			checkErr(scanErr, "scan photo path from record with mysql error")
 			r.PhotoSrc[i] = tmp
 			i++
 		}
 
 		r.PhotoLatitude = make(map[int]string)
 		latitudeRows, queryErr := db.Query("SELECT latitude FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo latitude from comment with mysql error")
+		checkErr(queryErr, "query photo latitude from record with mysql error")
 		defer latitudeRows.Close()
 		j := 0
 		for latitudeRows.Next() {
 			var tmp string
 			scanErr := latitudeRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo latitude from comment with mysql error")
+			checkErr(scanErr, "scan photo latitude from record with mysql error")
 			r.PhotoLatitude[i] = tmp
 			j++
 		}
 
 		r.PhotoLongitude = make(map[int]string)
 		longitudeRows, queryErr := db.Query("SELECT longitude FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo longitude from comment with mysql error")
+		checkErr(queryErr, "query photo longitude from record with mysql error")
 		defer longitudeRows.Close()
 		k := 0
 		for longitudeRows.Next() {
 			var tmp string
 			scanErr := longitudeRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo longitude from comment with mysql error")
+			checkErr(scanErr, "scan photo longitude from record with mysql error")
 			r.PhotoLongitude[i] = tmp
 			k++
 		}
@@ -255,18 +171,17 @@ func searchRecordsByTag(tag string) Records {
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
 	idrows, queryErr := db.Query("SELECT id FROM record WHERE tag=?", tag)
-	checkErr(queryErr, "query record id from comment with mysql error")
+	checkErr(queryErr, "query record id from record with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan record id from comment with mysql error")
+		checkErr(scanErr, "scan record id from record with mysql error")
 		recordIDs = append(recordIDs, tmp)
 	}
 
 	for index, id := range recordIDs {
-		recordname, organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
-		db.QueryRow("SELECT recordname FROM record WHERE id = ?", id).Scan(&recordname)
+		organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
 		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
 		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
 		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
@@ -277,7 +192,6 @@ func searchRecordsByTag(tag string) Records {
 
 		r := Record{
 			ID:           id,
-			RecordName:   recordname,
 			OrganismName: organismname,
 			Food:         food,
 			Stage:        stage,
@@ -287,13 +201,13 @@ func searchRecordsByTag(tag string) Records {
 			Note:         note}
 		r.PhotoSrc = make(map[int]string)
 		idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo path from comment with mysql error")
+		checkErr(queryErr, "query photo path from record with mysql error")
 		defer idrows.Close()
 		i := 0
 		for idrows.Next() {
 			var tmp string
 			scanErr := idrows.Scan(&tmp)
-			checkErr(scanErr, "scan photo path from comment with mysql error")
+			checkErr(scanErr, "scan photo path from record with mysql error")
 			r.PhotoSrc[i] = tmp
 			i++
 		}
@@ -317,18 +231,17 @@ func searchRecordsBySeason(season string) Records {
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
 	idrows, queryErr := db.Query("SELECT id FROM record WHERE season=?", season)
-	checkErr(queryErr, "query record id from comment with mysql error")
+	checkErr(queryErr, "query record id from record with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan record id from comment with mysql error")
+		checkErr(scanErr, "scan record id from record with mysql error")
 		recordIDs = append(recordIDs, tmp)
 	}
 
 	for index, id := range recordIDs {
-		recordname, organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
-		db.QueryRow("SELECT recordname FROM record WHERE id = ?", id).Scan(&recordname)
+		organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
 		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
 		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
 		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
@@ -339,7 +252,6 @@ func searchRecordsBySeason(season string) Records {
 
 		r := Record{
 			ID:           id,
-			RecordName:   recordname,
 			OrganismName: organismname,
 			Food:         food,
 			Stage:        stage,
@@ -349,13 +261,13 @@ func searchRecordsBySeason(season string) Records {
 			Note:         note}
 		r.PhotoSrc = make(map[int]string)
 		idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo path from comment with mysql error")
+		checkErr(queryErr, "query photo path from record with mysql error")
 		defer idrows.Close()
 		i := 0
 		for idrows.Next() {
 			var tmp string
 			scanErr := idrows.Scan(&tmp)
-			checkErr(scanErr, "scan photo path from comment with mysql error")
+			checkErr(scanErr, "scan photo path from record with mysql error")
 			r.PhotoSrc[i] = tmp
 			i++
 		}
@@ -370,18 +282,17 @@ func searchRecordsByDateRange(dateFrom, dateTo string) Records {
 	records.Records = make(map[int]Record)
 
 	idrows, queryErr := db.Query("SELECT id FROM record WHERE createtime BETWEEN " + dateFrom + " AND " + dateTo + "")
-	checkErr(queryErr, "query record id from comment with mysql error")
+	checkErr(queryErr, "query record id from record with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan record id from comment with mysql error")
+		checkErr(scanErr, "scan record id from record with mysql error")
 		recordIDs = append(recordIDs, tmp)
 	}
 
 	for index, id := range recordIDs {
-		recordname, organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
-		db.QueryRow("SELECT recordname FROM record WHERE id = ?", id).Scan(&recordname)
+		organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
 		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
 		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
 		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
@@ -392,7 +303,6 @@ func searchRecordsByDateRange(dateFrom, dateTo string) Records {
 
 		r := Record{
 			ID:           id,
-			RecordName:   recordname,
 			OrganismName: organismname,
 			Food:         food,
 			Stage:        stage,
@@ -402,13 +312,13 @@ func searchRecordsByDateRange(dateFrom, dateTo string) Records {
 			Note:         note}
 		r.PhotoSrc = make(map[int]string)
 		idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo path from comment with mysql error")
+		checkErr(queryErr, "query photo path from photo with mysql error")
 		defer idrows.Close()
 		i := 0
 		for idrows.Next() {
 			var tmp string
 			scanErr := idrows.Scan(&tmp)
-			checkErr(scanErr, "scan photo path from comment with mysql error")
+			checkErr(scanErr, "scan photo path from photo with mysql error")
 			r.PhotoSrc[i] = tmp
 			i++
 		}
@@ -611,8 +521,7 @@ func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
 
 func searchRecordByRecordID(recordID string) Record {
 	id, _ := strconv.Atoi(recordID)
-	recordname, organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
-	db.QueryRow("SELECT recordname FROM record WHERE id = ?", recordID).Scan(&recordname)
+	organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
 	db.QueryRow("SELECT organismname FROM record WHERE id = ?", recordID).Scan(&organismname)
 	db.QueryRow("SELECT food FROM record WHERE id = ?", recordID).Scan(&food)
 	db.QueryRow("SELECT stage FROM record WHERE id = ?", recordID).Scan(&stage)
@@ -623,7 +532,6 @@ func searchRecordByRecordID(recordID string) Record {
 
 	r := Record{
 		ID:           id,
-		RecordName:   recordname,
 		OrganismName: organismname,
 		Food:         food,
 		Stage:        stage,
@@ -633,13 +541,13 @@ func searchRecordByRecordID(recordID string) Record {
 		Note:         note}
 	r.PhotoSrc = make(map[int]string)
 	idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", recordID)
-	checkErr(queryErr, "query photo path from comment with mysql error")
+	checkErr(queryErr, "query photo path from photo with mysql error")
 	defer idrows.Close()
 	i := 0
 	for idrows.Next() {
 		var tmp string
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan photo path from comment with mysql error")
+		checkErr(scanErr, "scan photo path from photo with mysql error")
 		r.PhotoSrc[i] = tmp
 		i++
 	}
@@ -682,18 +590,17 @@ func searchAllRecords() Records {
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
 	idrows, queryErr := db.Query("SELECT id FROM record")
-	checkErr(queryErr, "query organis id from comment with mysql error")
+	checkErr(queryErr, "query record id from record with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan organis id from comment with mysql error")
+		checkErr(scanErr, "scan record id from record with mysql error")
 		recordIDs = append(recordIDs, tmp)
 	}
 
 	for index, id := range recordIDs {
-		recordname, organismname, food, stage, season, status, habitat, note, createTime := "", "", "", "", "", "", "", "", ""
-		db.QueryRow("SELECT recordname FROM record WHERE id = ?", id).Scan(&recordname)
+		organismname, food, stage, season, status, habitat, note, createTime := "", "", "", "", "", "", "", ""
 		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
 		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
 		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
@@ -705,7 +612,6 @@ func searchAllRecords() Records {
 
 		r := Record{
 			ID:           id,
-			RecordName:   recordname,
 			OrganismName: organismname,
 			Food:         food,
 			Stage:        stage,
@@ -716,13 +622,13 @@ func searchAllRecords() Records {
 			CrateTime:    createTime}
 		r.PhotoSrc = make(map[int]string)
 		pathRows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo path from comment with mysql error")
+		checkErr(queryErr, "query photo path from photo with mysql error")
 		defer pathRows.Close()
 		i := 0
 		for pathRows.Next() {
 			var tmp string
 			scanErr := pathRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo path from comment with mysql error")
+			checkErr(scanErr, "scan photo path from photo with mysql error")
 
 			r.PhotoSrc[i] = tmp
 			i++
@@ -730,26 +636,26 @@ func searchAllRecords() Records {
 
 		r.PhotoLatitude = make(map[int]string)
 		latitudeRows, queryErr := db.Query("SELECT latitude FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo latitude from comment with mysql error")
+		checkErr(queryErr, "query photo latitude from photo with mysql error")
 		defer latitudeRows.Close()
 		j := 0
 		for latitudeRows.Next() {
 			var tmp string
 			scanErr := latitudeRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo latitude from comment with mysql error")
+			checkErr(scanErr, "scan photo latitude from photo with mysql error")
 			r.PhotoLatitude[i] = tmp
 			j++
 		}
 
 		r.PhotoLongitude = make(map[int]string)
 		longitudeRows, queryErr := db.Query("SELECT longitude FROM photo WHERE recordid = ?", id)
-		checkErr(queryErr, "query photo longitude from comment with mysql error")
+		checkErr(queryErr, "query photo longitude from photo with mysql error")
 		defer longitudeRows.Close()
 		k := 0
 		for longitudeRows.Next() {
 			var tmp string
 			scanErr := longitudeRows.Scan(&tmp)
-			checkErr(scanErr, "scan photo longitude from comment with mysql error")
+			checkErr(scanErr, "scan photo longitude from photo with mysql error")
 			r.PhotoLongitude[i] = tmp
 			k++
 		}
@@ -763,12 +669,12 @@ func searchLibraryData() Library {
 	library.LibraryDatas = make(map[int]LibraryData)
 
 	idrows, queryErr := db.Query("SELECT id FROM library")
-	checkErr(queryErr, "query library id from comment with mysql error")
+	checkErr(queryErr, "query library id from library with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan library id from comment with mysql error")
+		checkErr(scanErr, "scan library id from library with mysql error")
 		dataIDs = append(dataIDs, tmp)
 	}
 
@@ -801,12 +707,12 @@ func searchLibraryDataByLabel(label string) Library {
 	library.LibraryDatas = make(map[int]LibraryData)
 
 	idrows, queryErr := db.Query("SELECT id FROM library WHERE label=?", label)
-	checkErr(queryErr, "query library id from comment with mysql error")
+	checkErr(queryErr, "query library id from library with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan library id from comment with mysql error")
+		checkErr(scanErr, "scan library id from library with mysql error")
 		dataIDs = append(dataIDs, tmp)
 	}
 
@@ -839,12 +745,12 @@ func searchLibraryDataBySpecies(species string) Library {
 	library.LibraryDatas = make(map[int]LibraryData)
 
 	idrows, queryErr := db.Query("SELECT id FROM library WHERE species=?", species)
-	checkErr(queryErr, "query library id from comment with mysql error")
+	checkErr(queryErr, "query library id from library with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan library id from comment with mysql error")
+		checkErr(scanErr, "scan library id from library with mysql error")
 		dataIDs = append(dataIDs, tmp)
 	}
 
@@ -870,6 +776,80 @@ func searchLibraryDataBySpecies(species string) Library {
 		library.LibraryDatas[index] = ld
 	}
 	return library
+}
+
+func searchPhotosByTag(tag string) Gallery {
+	organismNameSlice, gallery := []string{}, Gallery{}
+	gallery.GroupByTag = make(map[string]Records)
+
+	nameRows, queryErr := db.Query("SELECT organismname FROM record WHERE tag=?", tag)
+	checkErr(queryErr, "query organismname from record with mysql error")
+	defer nameRows.Close()
+	for nameRows.Next() {
+		var tmp string
+		scanErr := nameRows.Scan(&tmp)
+		checkErr(scanErr, "scan organismname from record with mysql error")
+		organismNameSlice = append(organismNameSlice, tmp)
+	}
+
+	for _, organismName := range organismNameSlice {
+		recordIDs, records := []int{}, Records{}
+		records.Records = make(map[int]Record)
+		idrows, queryErr := db.Query("SELECT id FROM record WHERE organismname=?", organismName)
+		checkErr(queryErr, "query organis id from record with mysql error")
+		defer idrows.Close()
+		for idrows.Next() {
+			var tmp int
+			scanErr := idrows.Scan(&tmp)
+			checkErr(scanErr, "scan organis id from record with mysql error")
+			recordIDs = append(recordIDs, tmp)
+		}
+
+		for index, id := range recordIDs {
+			r := Record{}
+			r.PhotoSrc = make(map[int]string)
+			pathRows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
+			checkErr(queryErr, "query photo path from record with mysql error")
+			defer pathRows.Close()
+			i := 0
+			for pathRows.Next() {
+				var tmp string
+				scanErr := pathRows.Scan(&tmp)
+				checkErr(scanErr, "scan photo path from record with mysql error")
+				r.PhotoSrc[i] = tmp
+				i++
+			}
+
+			r.PhotoLatitude = make(map[int]string)
+			latitudeRows, queryErr := db.Query("SELECT latitude FROM photo WHERE recordid = ?", id)
+			checkErr(queryErr, "query photo latitude from record with mysql error")
+			defer latitudeRows.Close()
+			j := 0
+			for latitudeRows.Next() {
+				var tmp string
+				scanErr := latitudeRows.Scan(&tmp)
+				checkErr(scanErr, "scan photo latitude from record with mysql error")
+				r.PhotoLatitude[i] = tmp
+				j++
+			}
+
+			r.PhotoLongitude = make(map[int]string)
+			longitudeRows, queryErr := db.Query("SELECT longitude FROM photo WHERE recordid = ?", id)
+			checkErr(queryErr, "query photo longitude from record with mysql error")
+			defer longitudeRows.Close()
+			k := 0
+			for longitudeRows.Next() {
+				var tmp string
+				scanErr := longitudeRows.Scan(&tmp)
+				checkErr(scanErr, "scan photo longitude from record with mysql error")
+				r.PhotoLongitude[i] = tmp
+				k++
+			}
+			records.Records[index] = r
+			gallery.GroupByTag[organismName] = records
+		}
+	}
+	return gallery
 }
 
 func searchPhotoByPhotoID(photoID string) Photo {

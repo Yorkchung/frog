@@ -191,7 +191,19 @@ func deleteLibraryData(w http.ResponseWriter, r *http.Request) {
 }
 
 func getGalleryByKeyword(w http.ResponseWriter, r *http.Request) {
-
+	r.ParseForm()
+	searchtype := r.FormValue("searchtype")
+	switch searchtype {
+	case "tag":
+		keyword := r.FormValue("keyword")
+		gallery := searchPhotosByTag(keyword)
+		b, _ := json.Marshal(gallery)
+		w.Write(b)
+	case "organismname":
+		//keyword := r.FormValue("keyword")
+	case "season":
+		//keyword := r.FormValue("keyword")
+	}
 }
 
 func getPhoto(w http.ResponseWriter, r *http.Request) {

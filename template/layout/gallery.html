@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
     <head>
-    
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/public/css/gallery/gallery.css">
+                <script src="/resource/jquery/jquery-3.2.1.min.js"></script>
+                <script src="/public/javascript/gallery/init.js"></script>
+        <title>Record</title>
     </head>
     <body>
-        {{.}}
-        {{.Name}}
-        {{.Food}}
-        {{.Stage}}
-        {{.Season}}
-        {{.Note}}
+        <div class="container">
+            <div class="top">
+                <div class="bar">
+                    <div class="nav">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/library">Library</a></li>
+                            <li><a href="/upload">Upload</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                            <li><button id="records-index" class="active">索引</button></li>
+                            <li><button id="records-frog">蛙類</button></li>
+                            <li><button id="records-lepidoptera">蝶類</button></li>
+                            <li><button id="records-plant">植物</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div id="records-data" class="records-data">
+                </div>
+                <div id="album" class="album"></div>
+            </div>
+            <!-- main end-->
+        </div>
+        <!-- container end-->
+        
+        <script src="/public/javascript/gallery/form.js"></script>
+        
     </body>
 </html>

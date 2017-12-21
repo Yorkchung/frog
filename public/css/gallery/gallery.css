@@ -1,0 +1,28 @@
+.album {
+    display: none;
+}
+
+img {
+    width: 80%;
+    height: auto;
+}
+
+.single-album-div {
+	width: 450px;
+	height: 250px;
+	position: relative;
+	border: 1px solid #ccc;
+	overflow: hidden;
+}
+.single-album-div ul, .single-album-div ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.single-album-div ul li {
+	position: absolute;
+	z-index: 1;
+}
+.single-album-div ul li.selected {
+	z-index: 99;
+}

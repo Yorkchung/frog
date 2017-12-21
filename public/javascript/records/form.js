@@ -28,7 +28,7 @@ $( "#records-frog" ).click(function(e) {
                 data: { recordid: id }
             }).done(function( searchResult ) {;
                 var result = $.parseJSON(searchResult);
-                console.log(result);        
+                console.log(result);
             });
         });
         
@@ -56,6 +56,19 @@ $( "#records-lepidoptera" ).click(function(e) {
             searchResultHTML += '';
             $('#records-data').prepend(searchResultHTML);
         });
+
+        $( ".getRecordByRecordID" ).click(function(e) {
+            id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url : "/record/data",
+                data: { recordid: id }
+            }).done(function( searchResult ) {;
+                var result = $.parseJSON(searchResult);
+                console.log(result);
+            });
+        });
+
     });
 });
 
@@ -80,5 +93,18 @@ $( "#records-plant" ).click(function(e) {
             searchResultHTML += '';
             $('#records-data').prepend(searchResultHTML);
         });
+        
+        $( ".getRecordByRecordID" ).click(function(e) {
+            id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url : "/record/data",
+                data: { recordid: id }
+            }).done(function( searchResult ) {;
+                var result = $.parseJSON(searchResult);
+                console.log(result);
+            });
+        });
+
     });
 });
