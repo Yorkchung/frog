@@ -11,8 +11,10 @@ $( "#records-frog" ).click(function(e) {
             var searchResultHTML = "<div>";
             searchResultHTML += "<table id='" + val.ID +  "' border='1'><tbody>";
             searchResultHTML += "<tr><td>種類</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
+            /*
             searchResultHTML += "<tr><td>性狀</td><td class='dataStatus'>" + val.Status + "</td></tr>";
             searchResultHTML += "<tr><td>棲地</td><td class='dataHabitat'>" + val.Habitat + "</td></tr>";
+            */
             searchResultHTML += "<tr><td>操作</td><td><button class='getRecordByRecordID' value='" + val.ID + "'>細節</button></td></tr>";
             searchResultHTML += "</tbody></table>";
             searchResultHTML += "</div></br>";
@@ -28,10 +30,14 @@ $( "#records-frog" ).click(function(e) {
                 data: { recordid: id }
             }).done(function( searchResult ) {;
                 var result = $.parseJSON(searchResult);
-                console.log(result);
+                console.log(result); //單筆記錄的資料在這邊，配合 CSS, HTML 可把單筆記錄的資料 放到彈出視窗裡面
+                HTML = "";
+                HTML += "test";
+
+                $('#record-data-div').prepend(HTML);
+                $("#single-record-data").show();
             });
         });
-        
     });
 });
 
@@ -88,8 +94,10 @@ $( "#records-plant" ).click(function(e) {
             var searchResultHTML = "<div>";
             searchResultHTML += "<table id='" + val.ID +  "' border='1'><tbody>";
             searchResultHTML += "<tr><td>種類</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
+            /*
             searchResultHTML += "<tr><td>性狀</td><td class='dataStatus'>" + val.Status + "</td></tr>";
             searchResultHTML += "<tr><td>棲地</td><td class='dataHabitat'>" + val.Habitat + "</td></tr>";
+            */
             searchResultHTML += "<tr><td>操作</td><td><button class='getRecordByRecordID' value='" + val.ID + "'>細節</button></td></tr>";
             searchResultHTML += "</tbody></table>";
             searchResultHTML += "</div></br>";
@@ -110,4 +118,8 @@ $( "#records-plant" ).click(function(e) {
         });
 
     });
+});
+
+$( "#close-single-record-data-div-button" ).click(function(e) {
+    $( "#single-record-data" ).hide();
 });
