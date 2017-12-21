@@ -45,9 +45,13 @@ func main() {
 	mux.HandleFunc("/console", consoleController)
 	mux.HandleFunc("/upload", uploadController)
 	mux.HandleFunc("/record", recordController)
+	mux.HandleFunc("/record/data", recordDataController)
 	mux.HandleFunc("/records", recordsController)
+	mux.HandleFunc("/records/data", recordsDataController)
 	mux.HandleFunc("/library", libraryController)
+	mux.HandleFunc("/library/data", libraryDataController)
 	mux.HandleFunc("/gallery", galleryController)
+	mux.HandleFunc("/gallery/data", galleryDataController)
 
 	mux.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir(frogConfig.PublicPath))))
 	mux.Handle("/resource/", http.StripPrefix("/resource/", http.FileServer(http.Dir(frogConfig.ResourcePath))))

@@ -11,35 +11,23 @@
     <body>
         <div class="container">
             <div class="top">
-                <div class="nav">
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/challenge">Challenge</a></li>
-                        <li class="dropdown">
-                            <!--arrange by category label: frog butterfly plant ... -->
-                            <a href="javascript:void(0)" class="dropbtn">Library</a>
-                            <div class="dropdown-content">
-                                <a href="/library/frog">青蛙</a><br/>
-                                <a href="/library/butterfly">蝴蝶</a><br/>
-                                <a href="/library/plant">植物</a><br/>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropbtn">Gallery</a>
-                            <div class="dropdown-content">
-                                <a href="/photo/frog">青蛙</a><br/>
-                                <a href="/photo/butterfly">蝴蝶</a><br/>
-                                <a href="/photo/plant">植物</a><br/>
-                            </div>
-                        </li>
-                        <li><a href="/records">Record</a></li>
-                        <li><a href="/upload">Upload</a></li>
-                        <li><a href="/logout">Logout</a></li>
-                    </ul>
+                <div class="bar">
+                    <div class="nav">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/library">Library</a></li>
+                            <li><a href="/upload">Upload</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                            <li><button id="records-index" class="active">索引</button></li>
+                            <li><button id="records-frog">蛙類</button></li>
+                            <li><button id="records-lepidoptera">蝶類</button></li>
+                            <li><button id="records-plant">植物</button></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="main">
-                <div class="records-box">
+                <div id="records-data" class="records-data">
 
                 </div>
             </div>

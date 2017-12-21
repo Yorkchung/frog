@@ -1,7 +1,7 @@
 $( "#library-frog" ).click(function(e) {
     $.ajax({
-        type: "POST",
-        url: "/library",
+        type: "GET",
+        url: "/library/data",
         data: { label: "frog" }
     }).done(function( searchResult ) {
         var result = $.parseJSON(searchResult);
@@ -25,8 +25,8 @@ $( "#library-frog" ).click(function(e) {
 
 $( "#library-lepidoptera" ).click(function(e) {
     $.ajax({
-        type: "POST",
-        url: "/library",
+        type: "GET",
+        url: "/library/data",
         data: { label: "lepidoptera" }
     }).done(function( searchResult ) {
         var result = $.parseJSON(searchResult);
@@ -50,8 +50,8 @@ $( "#library-lepidoptera" ).click(function(e) {
 
 $( "#library-plant" ).click(function(e) {
     $.ajax({
-        type: "POST",
-        url: "/library",
+        type: "GET",
+        url: "/library/data",
         data: { label: "plant" }
     }).done(function( searchResult ) {
         var result = $.parseJSON(searchResult);

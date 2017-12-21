@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -32,6 +33,30 @@ func newRandomString(length int) string {
 	}
 	randString = buffer.String()
 	return randString
+}
+
+func parseCoordinateString(val string) float64 {
+	chunks := strings.Split(val, ",")
+	hours, _ := strconv.ParseFloat(strings.TrimSpace(chunks[0]), 64)
+	minutes, _ := strconv.ParseFloat(strings.TrimSpace(chunks[1]), 64)
+	seconds, _ := strconv.ParseFloat(strings.TrimSpace(chunks[2]), 64)
+	return hours + (minutes / 60) + (seconds / 3600)
+}
+
+func parseCoordinate(latitudeValue, latitudePosition, longitudeValue, longitudePosition string) (string, string) {
+	lati := parseCoordinateString(latitudeValue)
+	long := parseCoordinateString(longitudeValue)
+
+	if latitudePosition == "S" {
+		lati *= -1
+	}
+
+	if longitudePosition == "W" {
+		long *= -1
+	}
+	la := strconv.FormatFloat(lati, 'f', 6, 64)
+	lo := strconv.FormatFloat(long, 'f', 6, 64)
+	return la, lo
 }
 
 func getHashedPWByUsername(un string) (string, bool) {
@@ -67,7 +92,7 @@ func searchUsernameByUsername(un string) (string, bool) {
 	return u, exist
 }
 
-func getRecordsByRecordName(recordName string) Records {
+func searchRecordsByRecordName(recordName string) Records {
 	fmt.Println(recordName)
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
@@ -148,7 +173,7 @@ func getRecordsByRecordName(recordName string) Records {
 	return records
 }
 
-func getRecordsByOrganismName(organismName string) Records {
+func searchRecordsByOrganismName(organismName string) Records {
 	fmt.Println(organismName)
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
@@ -226,17 +251,16 @@ func getRecordsByOrganismName(organismName string) Records {
 	return records
 }
 
-func getRecordsByTag(tag string) Records {
-	fmt.Println(tag)
+func searchRecordsByTag(tag string) Records {
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
 	idrows, queryErr := db.Query("SELECT id FROM record WHERE tag=?", tag)
-	checkErr(queryErr, "query records id from comment with mysql error")
+	checkErr(queryErr, "query record id from comment with mysql error")
 	defer idrows.Close()
 	for idrows.Next() {
 		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan records id from comment with mysql error")
+		checkErr(scanErr, "scan record id from comment with mysql error")
 		recordIDs = append(recordIDs, tmp)
 	}
 
@@ -275,135 +299,20 @@ func getRecordsByTag(tag string) Records {
 		}
 		records.Records[index] = r
 	}
-
 	return records
 }
 
-func getLibraryData() Library {
-	dataIDs, library := []int{}, Library{}
-	library.LibraryDatas = make(map[int]LibraryData)
-
-	idrows, queryErr := db.Query("SELECT id FROM library")
-	checkErr(queryErr, "query library id from comment with mysql error")
-	defer idrows.Close()
-	for idrows.Next() {
-		var tmp int
-		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan library id from comment with mysql error")
-		dataIDs = append(dataIDs, tmp)
-	}
-
-	for index, id := range dataIDs {
-		organismname, family, food, season, status, habitat, note := "", "", "", "", "", "", ""
-		db.QueryRow("SELECT organismname FROM library WHERE id = ?", id).Scan(&organismname)
-		db.QueryRow("SELECT family FROM library WHERE id = ?", id).Scan(&family)
-		db.QueryRow("SELECT food FROM library WHERE id = ?", id).Scan(&food)
-		db.QueryRow("SELECT season FROM library WHERE id = ?", id).Scan(&season)
-		db.QueryRow("SELECT status FROM library WHERE id = ?", id).Scan(&status)
-		db.QueryRow("SELECT habitat FROM library WHERE id = ?", id).Scan(&habitat)
-		db.QueryRow("SELECT note FROM library WHERE id = ?", id).Scan(&note)
-
-		ld := LibraryData{
-			ID:           id,
-			OrganismName: organismname,
-			Family:       family,
-			Food:         food,
-			Season:       season,
-			Status:       status,
-			Habitat:      habitat,
-			Note:         note}
-		library.LibraryDatas[index] = ld
-	}
-	return library
-}
-
-func getLibraryDataByLabel(label string) Library {
-	dataIDs, library := []int{}, Library{}
-	library.LibraryDatas = make(map[int]LibraryData)
-
-	idrows, queryErr := db.Query("SELECT id FROM library WHERE label=?", label)
-	checkErr(queryErr, "query library id from comment with mysql error")
-	defer idrows.Close()
-	for idrows.Next() {
-		var tmp int
-		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan library id from comment with mysql error")
-		dataIDs = append(dataIDs, tmp)
-	}
-
-	for index, id := range dataIDs {
-		organismname, family, food, season, status, habitat, note := "", "", "", "", "", "", ""
-		db.QueryRow("SELECT organismname FROM library WHERE id = ?", id).Scan(&organismname)
-		db.QueryRow("SELECT family FROM library WHERE id = ?", id).Scan(&family)
-		db.QueryRow("SELECT food FROM library WHERE id = ?", id).Scan(&food)
-		db.QueryRow("SELECT season FROM library WHERE id = ?", id).Scan(&season)
-		db.QueryRow("SELECT status FROM library WHERE id = ?", id).Scan(&status)
-		db.QueryRow("SELECT habitat FROM library WHERE id = ?", id).Scan(&habitat)
-		db.QueryRow("SELECT note FROM library WHERE id = ?", id).Scan(&note)
-
-		ld := LibraryData{
-			ID:           id,
-			OrganismName: organismname,
-			Family:       family,
-			Food:         food,
-			Season:       season,
-			Status:       status,
-			Habitat:      habitat,
-			Note:         note}
-		library.LibraryDatas[index] = ld
-	}
-	return library
-}
-
-func getLibraryDataBySpecies(species string) Library {
-	dataIDs, library := []int{}, Library{}
-	library.LibraryDatas = make(map[int]LibraryData)
-
-	idrows, queryErr := db.Query("SELECT id FROM library WHERE species=?", species)
-	checkErr(queryErr, "query library id from comment with mysql error")
-	defer idrows.Close()
-	for idrows.Next() {
-		var tmp int
-		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan library id from comment with mysql error")
-		dataIDs = append(dataIDs, tmp)
-	}
-
-	for index, id := range dataIDs {
-		organismname, family, food, season, status, habitat, note := "", "", "", "", "", "", ""
-		db.QueryRow("SELECT organismname FROM library WHERE id = ?", id).Scan(&organismname)
-		db.QueryRow("SELECT family FROM library WHERE id = ?", id).Scan(&family)
-		db.QueryRow("SELECT food FROM library WHERE id = ?", id).Scan(&food)
-		db.QueryRow("SELECT season FROM library WHERE id = ?", id).Scan(&season)
-		db.QueryRow("SELECT status FROM library WHERE id = ?", id).Scan(&status)
-		db.QueryRow("SELECT habitat FROM library WHERE id = ?", id).Scan(&habitat)
-		db.QueryRow("SELECT note FROM library WHERE id = ?", id).Scan(&note)
-
-		ld := LibraryData{
-			ID:           id,
-			OrganismName: organismname,
-			Family:       family,
-			Food:         food,
-			Season:       season,
-			Status:       status,
-			Habitat:      habitat,
-			Note:         note}
-		library.LibraryDatas[index] = ld
-	}
-	return library
-}
-
-func getRecordsByAddress(address string) Records {
+func searchRecordsByAddress(address string) Records {
 	records := Records{}
 	return records
 }
 
-func getRecordsByGPS(longitude, latitude string) Records {
+func searchRecordsByGPS(longitude, latitude string) Records {
 	records := Records{}
 	return records
 }
 
-func getRecordsBySeason(season string) Records {
+func searchRecordsBySeason(season string) Records {
 	fmt.Println(season)
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
@@ -455,7 +364,7 @@ func getRecordsBySeason(season string) Records {
 	return records
 }
 
-func getRecordsByDateRange(dateFrom, dateTo string) Records {
+func searchRecordsByDateRange(dateFrom, dateTo string) Records {
 	fmt.Println(dateFrom, dateTo)
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
@@ -508,6 +417,7 @@ func getRecordsByDateRange(dateFrom, dateTo string) Records {
 	return records
 }
 
+/*
 func checkOrganismNameExistByOrganismName(organismName string) bool {
 	var o string
 	exist := false
@@ -518,6 +428,7 @@ func checkOrganismNameExistByOrganismName(organismName string) bool {
 	}
 	return exist
 }
+*/
 
 func storeLibraryWithCSV(r *http.Request, UID string) bool {
 	successStoreRecord := false
@@ -698,8 +609,76 @@ func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
 	w.Write(b)
 }
 
-func getAllRecords() Records {
+func searchRecordByRecordID(recordID string) Record {
+	id, _ := strconv.Atoi(recordID)
+	recordname, organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
+	db.QueryRow("SELECT recordname FROM record WHERE id = ?", recordID).Scan(&recordname)
+	db.QueryRow("SELECT organismname FROM record WHERE id = ?", recordID).Scan(&organismname)
+	db.QueryRow("SELECT food FROM record WHERE id = ?", recordID).Scan(&food)
+	db.QueryRow("SELECT stage FROM record WHERE id = ?", recordID).Scan(&stage)
+	db.QueryRow("SELECT season FROM record WHERE id = ?", recordID).Scan(&season)
+	db.QueryRow("SELECT status FROM record WHERE id = ?", recordID).Scan(&status)
+	db.QueryRow("SELECT habitat FROM record WHERE id = ?", recordID).Scan(&habitat)
+	db.QueryRow("SELECT note FROM record WHERE id = ?", recordID).Scan(&note)
 
+	r := Record{
+		ID:           id,
+		RecordName:   recordname,
+		OrganismName: organismname,
+		Food:         food,
+		Stage:        stage,
+		Season:       season,
+		Status:       status,
+		Habitat:      habitat,
+		Note:         note}
+	r.PhotoSrc = make(map[int]string)
+	idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", recordID)
+	checkErr(queryErr, "query photo path from comment with mysql error")
+	defer idrows.Close()
+	i := 0
+	for idrows.Next() {
+		var tmp string
+		scanErr := idrows.Scan(&tmp)
+		checkErr(scanErr, "scan photo path from comment with mysql error")
+		r.PhotoSrc[i] = tmp
+		i++
+	}
+	return r
+}
+
+func alterRecordByRecordID(r *http.Request) bool {
+	successAlter := true
+	r.ParseMultipartForm(32 << 20)
+	recordID := r.Form.Get("recordid")
+	for key, values := range r.Form {
+		for _, value := range values {
+			updateCommand := "UPDATE record SET " + key + "=?" + " WHERE id=?"
+			// when value quantity == 1, can do this
+			_, updateErr := db.Exec(updateCommand, value, recordID)
+			if updateErr != nil {
+				successAlter = false
+			}
+		}
+	}
+	return successAlter
+}
+
+func alterRecordPhotoByRecordID(r *http.Request) bool {
+	successAlter := true
+	return successAlter
+}
+
+func removeRecordByRecordID(recordID string) bool {
+	successDelete := false
+	_, deleteRecordWithMysqlErr := db.Exec("DELETE FROM record WHERE id=?", recordID)
+	checkErr(deleteRecordWithMysqlErr, "deleteRecordWithMysqlErr")
+	if deleteRecordWithMysqlErr == nil {
+		successDelete = true
+	}
+	return successDelete
+}
+
+func searchAllRecords() Records {
 	recordIDs, records := []int{}, Records{}
 	records.Records = make(map[int]Record)
 	idrows, queryErr := db.Query("SELECT id FROM record")
@@ -779,71 +758,116 @@ func getAllRecords() Records {
 	return records
 }
 
-func getRecordByRecordID(recordID string) Record {
-	id, _ := strconv.Atoi(recordID)
-	recordname, organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
-	db.QueryRow("SELECT recordname FROM record WHERE id = ?", recordID).Scan(&recordname)
-	db.QueryRow("SELECT organismname FROM record WHERE id = ?", recordID).Scan(&organismname)
-	db.QueryRow("SELECT food FROM record WHERE id = ?", recordID).Scan(&food)
-	db.QueryRow("SELECT stage FROM record WHERE id = ?", recordID).Scan(&stage)
-	db.QueryRow("SELECT season FROM record WHERE id = ?", recordID).Scan(&season)
-	db.QueryRow("SELECT status FROM record WHERE id = ?", recordID).Scan(&status)
-	db.QueryRow("SELECT habitat FROM record WHERE id = ?", recordID).Scan(&habitat)
-	db.QueryRow("SELECT note FROM record WHERE id = ?", recordID).Scan(&note)
+func searchLibraryData() Library {
+	dataIDs, library := []int{}, Library{}
+	library.LibraryDatas = make(map[int]LibraryData)
 
-	r := Record{
-		ID:           id,
-		RecordName:   recordname,
-		OrganismName: organismname,
-		Food:         food,
-		Stage:        stage,
-		Season:       season,
-		Status:       status,
-		Habitat:      habitat,
-		Note:         note}
-	r.PhotoSrc = make(map[int]string)
-	idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", recordID)
-	checkErr(queryErr, "query photo path from comment with mysql error")
+	idrows, queryErr := db.Query("SELECT id FROM library")
+	checkErr(queryErr, "query library id from comment with mysql error")
 	defer idrows.Close()
-	i := 0
 	for idrows.Next() {
-		var tmp string
+		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan photo path from comment with mysql error")
-		r.PhotoSrc[i] = tmp
-		i++
+		checkErr(scanErr, "scan library id from comment with mysql error")
+		dataIDs = append(dataIDs, tmp)
 	}
-	return r
+
+	for index, id := range dataIDs {
+		organismname, family, food, season, status, habitat, note := "", "", "", "", "", "", ""
+		db.QueryRow("SELECT organismname FROM library WHERE id = ?", id).Scan(&organismname)
+		db.QueryRow("SELECT family FROM library WHERE id = ?", id).Scan(&family)
+		db.QueryRow("SELECT food FROM library WHERE id = ?", id).Scan(&food)
+		db.QueryRow("SELECT season FROM library WHERE id = ?", id).Scan(&season)
+		db.QueryRow("SELECT status FROM library WHERE id = ?", id).Scan(&status)
+		db.QueryRow("SELECT habitat FROM library WHERE id = ?", id).Scan(&habitat)
+		db.QueryRow("SELECT note FROM library WHERE id = ?", id).Scan(&note)
+
+		ld := LibraryData{
+			ID:           id,
+			OrganismName: organismname,
+			Family:       family,
+			Food:         food,
+			Season:       season,
+			Status:       status,
+			Habitat:      habitat,
+			Note:         note}
+		library.LibraryDatas[index] = ld
+	}
+	return library
 }
 
-func alterRecordByRecordID(r *http.Request) bool {
-	successAlter := true
-	r.ParseMultipartForm(32 << 20)
-	recordID := r.Form.Get("recordid")
-	for key, values := range r.Form {
-		for _, value := range values {
-			updateCommand := "UPDATE record SET " + key + "=?" + " WHERE id=?"
-			// when value quantity == 1, can do this
-			_, updateErr := db.Exec(updateCommand, value, recordID)
-			if updateErr != nil {
-				successAlter = false
-			}
-		}
+func searchLibraryDataByLabel(label string) Library {
+	dataIDs, library := []int{}, Library{}
+	library.LibraryDatas = make(map[int]LibraryData)
+
+	idrows, queryErr := db.Query("SELECT id FROM library WHERE label=?", label)
+	checkErr(queryErr, "query library id from comment with mysql error")
+	defer idrows.Close()
+	for idrows.Next() {
+		var tmp int
+		scanErr := idrows.Scan(&tmp)
+		checkErr(scanErr, "scan library id from comment with mysql error")
+		dataIDs = append(dataIDs, tmp)
 	}
-	return successAlter
+
+	for index, id := range dataIDs {
+		organismname, family, food, season, status, habitat, note := "", "", "", "", "", "", ""
+		db.QueryRow("SELECT organismname FROM library WHERE id = ?", id).Scan(&organismname)
+		db.QueryRow("SELECT family FROM library WHERE id = ?", id).Scan(&family)
+		db.QueryRow("SELECT food FROM library WHERE id = ?", id).Scan(&food)
+		db.QueryRow("SELECT season FROM library WHERE id = ?", id).Scan(&season)
+		db.QueryRow("SELECT status FROM library WHERE id = ?", id).Scan(&status)
+		db.QueryRow("SELECT habitat FROM library WHERE id = ?", id).Scan(&habitat)
+		db.QueryRow("SELECT note FROM library WHERE id = ?", id).Scan(&note)
+
+		ld := LibraryData{
+			ID:           id,
+			OrganismName: organismname,
+			Family:       family,
+			Food:         food,
+			Season:       season,
+			Status:       status,
+			Habitat:      habitat,
+			Note:         note}
+		library.LibraryDatas[index] = ld
+	}
+	return library
 }
 
-func alterRecordPhotoByRecordID(r *http.Request) bool {
-	successAlter := true
-	return successAlter
-}
+func searchLibraryDataBySpecies(species string) Library {
+	dataIDs, library := []int{}, Library{}
+	library.LibraryDatas = make(map[int]LibraryData)
 
-func removeRecordByRecordID(recordID string) bool {
-	successDelete := false
-	_, deleteRecordWithMysqlErr := db.Exec("DELETE FROM record WHERE id=?", recordID)
-	checkErr(deleteRecordWithMysqlErr, "deleteRecordWithMysqlErr")
-	if deleteRecordWithMysqlErr == nil {
-		successDelete = true
+	idrows, queryErr := db.Query("SELECT id FROM library WHERE species=?", species)
+	checkErr(queryErr, "query library id from comment with mysql error")
+	defer idrows.Close()
+	for idrows.Next() {
+		var tmp int
+		scanErr := idrows.Scan(&tmp)
+		checkErr(scanErr, "scan library id from comment with mysql error")
+		dataIDs = append(dataIDs, tmp)
 	}
-	return successDelete
+
+	for index, id := range dataIDs {
+		organismname, family, food, season, status, habitat, note := "", "", "", "", "", "", ""
+		db.QueryRow("SELECT organismname FROM library WHERE id = ?", id).Scan(&organismname)
+		db.QueryRow("SELECT family FROM library WHERE id = ?", id).Scan(&family)
+		db.QueryRow("SELECT food FROM library WHERE id = ?", id).Scan(&food)
+		db.QueryRow("SELECT season FROM library WHERE id = ?", id).Scan(&season)
+		db.QueryRow("SELECT status FROM library WHERE id = ?", id).Scan(&status)
+		db.QueryRow("SELECT habitat FROM library WHERE id = ?", id).Scan(&habitat)
+		db.QueryRow("SELECT note FROM library WHERE id = ?", id).Scan(&note)
+
+		ld := LibraryData{
+			ID:           id,
+			OrganismName: organismname,
+			Family:       family,
+			Food:         food,
+			Season:       season,
+			Status:       status,
+			Habitat:      habitat,
+			Note:         note}
+		library.LibraryDatas[index] = ld
+	}
+	return library
 }

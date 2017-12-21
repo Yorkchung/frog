@@ -16,6 +16,47 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `userinfo`
+--
+
+DROP TABLE IF EXISTS `userinfo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) DEFAULT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `surname` varchar(15) DEFAULT NULL,
+  `givenname` varchar(15) DEFAULT NULL,
+  `nickname` varchar(15) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` text,
+  `birthday` date DEFAULT NULL,
+  `nationality` varchar(80) DEFAULT NULL,
+  `gender` varchar(15) DEFAULT NULL,
+  `religion` varchar(100) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `vegetarian` varchar(100) DEFAULT NULL,
+  `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userinfo`
+--
+
+LOCK TABLES `userinfo` WRITE;
+/*!40000 ALTER TABLE `userinfo` DISABLE KEYS */;
+INSERT INTO `userinfo` VALUES (1,NULL,'testun','68656c6c6f70773230313708a2f8c9e2fce8e8eb5f181ee569ed836b9d4dfb4e0fbbed24d816b8e0549f2de004ebba08ed4f5fbd463fe390bd827e9b496c109f26440fb942cd20f3a3579a',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2017-12-16 16:24:57');
+/*!40000 ALTER TABLE `userinfo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `library`
 --
 
@@ -72,7 +113,7 @@ CREATE TABLE `photo` (
   `shootdatetime` datetime DEFAULT NULL,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +122,7 @@ CREATE TABLE `photo` (
 
 LOCK TABLES `photo` WRITE;
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-INSERT INTO `photo` VALUES (1,1,1,'p6k2hnj6l69rjsphx72psxn58wckfqqvexj.png','Screen Shot 2017-12-21 at 12.49.55.png',NULL,NULL,NULL,NULL,'2017-12-21 12:50:07');
+INSERT INTO `photo` VALUES (1,1,1,'p6k2hnj6l69rjsphx72psxn58wckfqqvexj.png','Screen Shot 2017-12-21 at 12.49.55.png',NULL,NULL,NULL,NULL,'2017-12-21 12:50:07'),(2,1,2,'g24lmyhiwwdzqxoxqy7s49btawne5nnn91d.jpg','IMG20171214120506.jpg','120.927252','23.952210',NULL,NULL,'2017-12-21 15:09:30'),(3,1,2,'2rw3blzpajgejbpe9ujrzavgmqwj4ltdu7p.png','Screen Shot 2017-12-21 at 12.49.55.png',NULL,NULL,NULL,NULL,'2017-12-21 15:09:30');
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +156,7 @@ CREATE TABLE `record` (
   `note` text,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,49 +165,8 @@ CREATE TABLE `record` (
 
 LOCK TABLES `record` WRITE;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
-INSERT INTO `record` VALUES (1,1,'莫氏青蛙',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','測試',NULL,'島上','無','2017-12-21 12:50:07');
+INSERT INTO `record` VALUES (1,1,'莫氏青蛙',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','測試',NULL,'島上','無','2017-12-21 12:50:07'),(2,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','冬季','測',NULL,'島','嗯哼','2017-12-21 15:09:30');
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `userinfo`
---
-
-DROP TABLE IF EXISTS `userinfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userinfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) DEFAULT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `surname` varchar(15) DEFAULT NULL,
-  `givenname` varchar(15) DEFAULT NULL,
-  `nickname` varchar(15) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `address` text,
-  `birthday` date DEFAULT NULL,
-  `nationality` varchar(80) DEFAULT NULL,
-  `gender` varchar(15) DEFAULT NULL,
-  `religion` varchar(100) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `vegetarian` varchar(100) DEFAULT NULL,
-  `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `userinfo`
---
-
-LOCK TABLES `userinfo` WRITE;
-/*!40000 ALTER TABLE `userinfo` DISABLE KEYS */;
-INSERT INTO `userinfo` VALUES (1,NULL,'testun','68656c6c6f70773230313708a2f8c9e2fce8e8eb5f181ee569ed836b9d4dfb4e0fbbed24d816b8e0549f2de004ebba08ed4f5fbd463fe390bd827e9b496c109f26440fb942cd20f3a3579a',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2017-12-16 16:24:57');
-/*!40000 ALTER TABLE `userinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -178,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-21 12:52:50
+-- Dump completed on 2017-12-21 15:50:57

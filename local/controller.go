@@ -24,7 +24,10 @@ func loginController(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		pushLoginPage(w, r)
 	case "POST":
-		login(w, r)
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == false {
+			login(w, r)
+		}
 	}
 }
 
@@ -90,10 +93,27 @@ func recordController(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		pushRecordPage(w, r)
+	}
+}
+
+func recordDataController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		getRecord(w, r)
 	case "POST":
 		loginStatus := verifyLoginStatus(r)
 		if loginStatus == true {
 			uploadRecord(w, r)
+		}
+	case "PATCH":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+
+		}
+	case "DELETE":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+			deleteRecordByRecordID(w, r)
 		}
 	}
 }
@@ -110,15 +130,50 @@ func recordsController(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func recordsDataController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		getRecordsByKeyword(w, r)
+	case "POST":
+		loginStatus := verifyLoginStatus(r)
+		if loginStatus == true {
+
+		}
+	}
+}
+
 func libraryController(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		pushLibraryPage(w, r)
 	case "POST":
-		searchLibraryByLabel(w, r)
+
+	}
+}
+
+func libraryDataController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		getLibraryByLabel(w, r)
+	case "POST":
+
 	}
 }
 
 func galleryController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		pushGalleryPage(w, r)
+	case "POST":
 
+	}
+}
+
+func galleryDataController(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+
+	case "POST":
+
+	}
 }

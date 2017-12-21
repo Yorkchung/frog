@@ -60,3 +60,6 @@
 [Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
 [Error] 2017/12/20 13:19:12 log.go:7: get session from redis err
 [Error] 2017/12/21 12:45:20 log.go:7: connectRedisErr
+[Error] 2017/12/21 13:25:31 log.go:7: connectRedisErr
+[Error] 2017/12/21 13:25:55 log.go:7: get session from redis err
+[Error] 2017/12/21 13:25:58 log.go:7: get session from redis err
