@@ -24,19 +24,7 @@ $( "#records-frog" ).click(function(e) {
 
         $( ".getRecordByRecordID" ).click(function(e) {
             id = $(this).val();
-            $.ajax({
-                type: "GET",
-                url : "/record/data",
-                data: { recordid: id }
-            }).done(function( searchResult ) {;
-                var result = $.parseJSON(searchResult);
-                console.log(result); //單筆記錄的資料在這邊，配合 CSS, HTML 可把單筆記錄的資料 放到彈出視窗裡面
-                HTML = "";
-                HTML += "test";
-
-                $('#record-data-div').prepend(HTML);
-                $("#single-record-data").show();
-            });
+            location.href = "/record?" + id;
         });
     });
 });
@@ -120,6 +108,8 @@ $( "#records-plant" ).click(function(e) {
     });
 });
 
+/*
 $( "#close-single-record-data-div-button" ).click(function(e) {
     $( "#single-record-data" ).hide();
 });
+*/

@@ -1,55 +1,33 @@
 $( document ).ready(function() {
-    
-    var pathname = document.location.pathname;
-    recordData = pathname.split("/", 3);
-    
-    $.post( "/search-record-by-record-id", { recordid: recordData[2] }).done(function( data ) {
-        var result = $.parseJSON(data);
+    var id = window.location.search.substring(1);
+
+    $.ajax({
+        type: "GET",
+        url : "/record/data",
+        data: { recordid: id }
+    }).done(function( searchResult ) {
+        var result = $.parseJSON(searchResult);
+        //console.log(result.ID);
+        //console.log(result.OrganismName);
+        //console.log(result.Food);
+        //console.log(result.Stage);
+        //console.log(result.Habitat);
+        //console.log(result.Note);
+		//PhotoLatitude
+		//PhotoLongitude
         console.log(result);
+        
+        HTML = "";
+        HTML += "<p class='OrganismName'>" + result.OrganismName + "</p><br/>";
+        HTML += "<p class='Food'>" + result.Food + "</p><br/>";
+        HTML += "<p class='Season'>" + result.Season + "</p><br/>";
+        HTML += "<p class='Stage'>" + result.Stage + "</p><br/>";
+        HTML += "<p class='Habitat'>" + result.Habitat + "</p><br/>";
+        HTML += "<p class='Note'>" + result.Note + "</p><br/>";
 
-        $('#library-data').prepend(searchResultHTML);
-
-        $( ".deleteDataButton" ).click(function(e) {
-            var dataID = $(this).val();
-            $("#deleteDataDiv").show();
-            $('input#needDeleteDataID').val(dataID);
+        jQuery.each(result.PhotoSrc, function(i, val) {
+            HTML += "<img class='PhotoSrc' src='/storage/photo/" + result.PhotoSrc[i] + "' ><br/>";
         });
-
-        $( ".modifyDataButton" ).click(function(e) {
-            var dataID = $(this).val();
-            $("#modifyDataDiv").show();
-            $('input#needModifyBookID').val(dataID);
-            $("#submit-modify-button").attr("disabled", "true");
-
-            var dataID = [{name:"dataID", value: dataID}];
-            $.ajax({
-                url : "modify-library-data",
-                type: "POST",
-                data : dataID,
-                success:function(data, textStatus, jqXHR) {
-                    var result = $.parseJSON(data);
-                    if (result.BookTitle != "") {
-                        $('#submit-modify-button').removeAttr('disabled');
-                    } else {
-
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                },
-                always: function() {
-
-                }
-            });
-        });
+        $('#record-data').prepend(HTML);                          
     });
-
-    $("#cancel-delete-button").click(function() {
-        $("#deleteDataDiv").hide();
-    });
-
-    $("#cancel-modify-button").click(function() {
-        $("#modifyDataDiv").hide();
-    });
-
 });

@@ -92,6 +92,7 @@ func uploadController(w http.ResponseWriter, r *http.Request) {
 func recordController(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
+		//fmt.Println(r.URL.RawQuery)
 		pushRecordPage(w, r)
 	}
 }

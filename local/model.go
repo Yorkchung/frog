@@ -539,17 +539,27 @@ func searchRecordByRecordID(recordID string) Record {
 		Status:       status,
 		Habitat:      habitat,
 		Note:         note}
+	photoIDs := []int{}
 	r.PhotoSrc = make(map[int]string)
-	idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", recordID)
-	checkErr(queryErr, "query photo path from photo with mysql error")
+	r.PhotoLatitude = make(map[int]string)
+	r.PhotoLongitude = make(map[int]string)
+	idrows, queryIDErr := db.Query("SELECT id FROM photo WHERE recordid = ?", recordID)
+	checkErr(queryIDErr, "query photo id from photo with mysql error")
 	defer idrows.Close()
-	i := 0
 	for idrows.Next() {
-		var tmp string
+		var tmp int
 		scanErr := idrows.Scan(&tmp)
-		checkErr(scanErr, "scan photo path from photo with mysql error")
-		r.PhotoSrc[i] = tmp
-		i++
+		checkErr(scanErr, "scan photo id from photo with mysql error")
+		photoIDs = append(photoIDs, tmp)
+	}
+	for index, id := range photoIDs {
+		path, longitude, latitude := "", "", ""
+		db.QueryRow("SELECT path FROM photo WHERE id = ?", id).Scan(&path)
+		db.QueryRow("SELECT longitude FROM photo WHERE id = ?", id).Scan(&longitude)
+		db.QueryRow("SELECT latitude FROM photo WHERE id = ?", id).Scan(&latitude)
+		r.PhotoSrc[index] = path
+		r.PhotoLatitude[index] = longitude
+		r.PhotoLongitude[index] = latitude
 	}
 	return r
 }
