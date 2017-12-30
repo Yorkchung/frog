@@ -1,4 +1,5 @@
 .container {
+    font-family: arial, sans-serif;
     display: flex;
     flex-direction: column;
     min-width: 100%;
@@ -13,6 +14,9 @@
     display: flex;
     flex-direction: row;
     border: 10px solid #333;
+    border-radius: 5px;
+    margin: 3px;
+    padding: 5px;
 }
 
 .bottom {
@@ -33,7 +37,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    /*background-color: #333;*/ 
 }
 
 .top .bar .nav ul li {
@@ -47,6 +51,8 @@
     padding: 14px 16px;
     text-decoration: none;
     background-color: #333;
+    font-size: 20px;
+    border: #7f7f7f 4px solid;
 }
 
 .top .bar .nav ul li button:hover:not(.active) {
@@ -65,6 +71,7 @@
 .main .library-data table {
     display: flex;
     align-items: center;
+    border-collapse: collapse;
 }
 
 .main .library-data tr {
@@ -73,11 +80,12 @@
     margin: 1px;
 }
 
-.main .library-data tr td {
+.main .library-data tr, td {
     display: flex;
     align-items: center;
     padding: 1px;
     margin: 1px;
+    border: 2px green solid;
 }
 
 .delete-data-div {
