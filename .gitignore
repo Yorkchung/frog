@@ -2,7 +2,8 @@
 *.out
 *.o
 *.class
-*.local
+local
 Thumbs.db
 .DS_Store
 dbconnect.php
+dump.rdb
