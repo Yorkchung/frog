@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.18, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.20, for macos10.12 (x86_64)
 --
 -- Host: localhost    Database: frog
 -- ------------------------------------------------------
--- Server version	5.7.18
+-- Server version	5.7.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,47 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `userinfo`
---
-
-DROP TABLE IF EXISTS `userinfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userinfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) DEFAULT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `surname` varchar(15) DEFAULT NULL,
-  `givenname` varchar(15) DEFAULT NULL,
-  `nickname` varchar(15) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `address` text,
-  `birthday` date DEFAULT NULL,
-  `nationality` varchar(80) DEFAULT NULL,
-  `gender` varchar(15) DEFAULT NULL,
-  `religion` varchar(100) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `vegetarian` varchar(100) DEFAULT NULL,
-  `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `userinfo`
---
-
-LOCK TABLES `userinfo` WRITE;
-/*!40000 ALTER TABLE `userinfo` DISABLE KEYS */;
-INSERT INTO `userinfo` VALUES (1,NULL,'testun','68656c6c6f70773230313708a2f8c9e2fce8e8eb5f181ee569ed836b9d4dfb4e0fbbed24d816b8e0549f2de004ebba08ed4f5fbd463fe390bd827e9b496c109f26440fb942cd20f3a3579a',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2017-12-16 16:24:57');
-/*!40000 ALTER TABLE `userinfo` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `library`
@@ -118,7 +77,7 @@ CREATE TABLE `record` (
   `food` varchar(50) DEFAULT NULL,
   `stage` varchar(15) DEFAULT NULL,
   `season` varchar(20) DEFAULT NULL,
-  `status` varchar(15) DEFAULT NULL,
+  `status` text,
   `address` varchar(30) DEFAULT NULL,
   `habitat` text,
   `note` text,
@@ -133,7 +92,7 @@ CREATE TABLE `record` (
 
 LOCK TABLES `record` WRITE;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
-INSERT INTO `record` VALUES (1,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','抖',NULL,'瑞','咪','2017-12-22 00:23:00'),(2,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','一',NULL,'二','三','2017-12-22 00:23:14'),(3,1,'莫氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','啦',NULL,'囉','咧','2017-12-22 00:23:35');
+INSERT INTO `record` VALUES (1,1,'翡翠樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','此蛙體背翠綠，腹部呈現白色。眼球的虹彩則幾近金黃色。由鼻尖經眼眶到鼓膜上方的金黃色皮褶，為此蛙與其他種綠色樹蛙最主要的辨別特徵。具有單鳴囊，喜歡在灌叢上鳴叫。\r\n',NULL,'棲息於低海拔的果園或闊葉林中。繁殖季時成體蛙喜歡躲在底部有積水的植物體上鳴叫。\r\n','','2017-12-30 17:35:03'),(2,1,'諸羅樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','諸羅樹蛙屬中型蛙類，體長4-6公分。諸羅樹蛙的體背為綠色，腹面為白色，由吻端至四肢全緣均鑲上白邊。雄蛙具單一鳴囊，叫聲極為清徹響亮。\r\n',NULL,'諸羅樹蛙棲息的地點都與人類農耕有關，如荔枝園、芒果園、甘蔗園、鳳梨園、麻竹林、番石榴園、香蕉園、柑桔園、檳榔園及水田等。成蛙配對後其產卵的地點都是在農耕地的積水處，尤其是有草本植物或落葉覆蓋的遮蔽處產卵。\r\n','','2017-12-30 17:35:48'),(3,1,'台北樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','屬中小型之綠色樹蛙，體背為綠色，腹面、四肢蹼膜及眼部虹彩為黃色，部分個體腹側及鼠蹊部有淡藍色斑塊，但絕無黑色斑點，藉此可以和型態與牠類似的莫氏樹蛙區別。',NULL,'一般在廢棄的農耕地或闊葉林底層中出現。生殖季時首先由雄蛙在泥地中築起巢穴，然後在土洞中鳴叫以吸引雌蛙前來配對。\r\n','','2017-12-30 17:36:10');
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +115,7 @@ CREATE TABLE `photo` (
   `shootdatetime` datetime DEFAULT NULL,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,8 +124,49 @@ CREATE TABLE `photo` (
 
 LOCK TABLES `photo` WRITE;
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-INSERT INTO `photo` VALUES (1,1,1,'1dph38zheoqqpo8w8a81vwzam6i35hippa5.jpg','0.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:00'),(2,1,2,'w4ko5mm14mt62svp9qtvdkoha51h95eu327.jpg','1.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:14'),(3,1,2,'fca1a48ftmto3ot4yojvj4fd89u1gy8v78v.jpg','2.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:14'),(4,1,2,'3e9f526mskbd81u6tr2akv1zl486kmex7cl.jpg','3.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:14'),(5,1,3,'jpbu1zmqdm74e51s219wt6ru3p6f8gyllte.jpg','4.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:35'),(6,1,3,'thpu19xtenuqdflc794addo3reb6f2m9kwm.jpg','5.jpg',NULL,NULL,NULL,NULL,'2017-12-22 00:23:35'),(7,1,3,'p4gduzcyhy7kdh8wpedvbcow6xnlym3wch1.jpg','6.jpg','120.970437','23.962765',NULL,NULL,'2017-12-22 00:23:35');
+INSERT INTO `photo` VALUES (1,1,1,'pfylvwkm54xirehcuovxw2yn9u2l748u5df.jpg','1.jpg',NULL,NULL,NULL,NULL,'2017-12-30 17:35:03'),(2,1,1,'wclv6hknj7mhtx4j7v9wrk3l1hhaogxzkd5.jpg','2.jpg',NULL,NULL,NULL,NULL,'2017-12-30 17:35:03'),(3,1,2,'u5vg79jatcy8s3l397iqmsv6xc4jsh8sc7s.jpg','3.jpg',NULL,NULL,NULL,NULL,'2017-12-30 17:35:48'),(4,1,3,'xap8wavgtdppz22tdsjn735s7tlwtff4c6r.jpg','4.jpg',NULL,NULL,NULL,NULL,'2017-12-30 17:36:10');
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userinfo`
+--
+
+DROP TABLE IF EXISTS `userinfo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) DEFAULT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `surname` varchar(15) DEFAULT NULL,
+  `givenname` varchar(15) DEFAULT NULL,
+  `nickname` varchar(15) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` text,
+  `birthday` date DEFAULT NULL,
+  `nationality` varchar(80) DEFAULT NULL,
+  `gender` varchar(15) DEFAULT NULL,
+  `religion` varchar(100) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `vegetarian` varchar(100) DEFAULT NULL,
+  `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userinfo`
+--
+
+LOCK TABLES `userinfo` WRITE;
+/*!40000 ALTER TABLE `userinfo` DISABLE KEYS */;
+INSERT INTO `userinfo` VALUES (1,NULL,'testun','68656c6c6f70773230313708a2f8c9e2fce8e8eb5f181ee569ed836b9d4dfb4e0fbbed24d816b8e0549f2de004ebba08ed4f5fbd463fe390bd827e9b496c109f26440fb942cd20f3a3579a',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2017-12-16 16:24:57');
+/*!40000 ALTER TABLE `userinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -178,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-22  0:26:21
+-- Dump completed on 2017-12-30 17:37:40

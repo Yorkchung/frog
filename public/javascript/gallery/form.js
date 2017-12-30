@@ -11,7 +11,7 @@ $( "#records-frog" ).click(function(e) {
         /*var HTML = "<div>";
         HTML += "<table border='1'><tbody>";
         jQuery.each(result.GroupByTag, function(name) {
-//            console.log(name); //莫氏樹蛙
+        //console.log(name);
             HTML += "<tr><td class='dataOrganismName'>" + "<button class='showAlbum' value='" + name + "' >" + name + "</button></td></tr>";
         });
         HTML += "</tbody></table>";
@@ -22,12 +22,12 @@ $( "#records-frog" ).click(function(e) {
         //name=this.val();
         var key = [];
             jQuery.each(result.GroupByTag, function(name){
-               key.push(name);    
+               key.push(name);
             });
             //console.log(key);
             var imgDivHTML = "";
             var count=0;
-            for(var i=0;i<key.length;i++){                
+            for(var i=0;i<key.length;i++){
                 jQuery.each(result.GroupByTag[key[i]], function(index, photoSrc){
                     //console.log(photoSrc);
                     imgDivHTML += "<img class='showAlbum' width='100' height='100' src='/storage/photo/" + photoSrc + "'>";
@@ -36,15 +36,15 @@ $( "#records-frog" ).click(function(e) {
                     imgDivHTML += "<br/>"
                     count=0;
                     }
-                });  
-                }
-                $('#records-data').prepend(imgDivHTML);
+                });
+            }
+            $('#records-data').prepend(imgDivHTML);
             $(".showAlbum").click(function(e){
                 swal({
                  type: 'info',
                   html: '<h1>dffd</h1>'+result.GroupByTag['莫氏樹蛙']+'<img src="">'
                 });
-            });        
+            });
 
            // $('#album').show().css('display', 'flex');
             //$(".single-album-div ul li").first().addClass('selected');

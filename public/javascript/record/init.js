@@ -22,6 +22,7 @@ $( document ).ready(function() {
         HTML += "<p class='Food'>" + result.Food + "</p><br/>";
         HTML += "<p class='Season'>" + result.Season + "</p><br/>";
         HTML += "<p class='Stage'>" + result.Stage + "</p><br/>";
+        HTML += "<p class='Status'>" + result.Status + "</p><br/>";
         HTML += "<p class='Habitat'>" + result.Habitat + "</p><br/>";
         HTML += "<p class='Note'>" + result.Note + "</p><br/>";
 
