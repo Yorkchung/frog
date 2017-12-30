@@ -27,11 +27,10 @@
     display: flex;
     flex-direction: row;
 }
-
+/*
 .top .bar .nav {
     
-}
-
+}*/
 .top .bar .nav ul {
     list-style-type: none;
     margin: 0;
@@ -86,7 +85,7 @@
 .main .library-data tr, td {
     /*display: flex;*/
     align-items: center;
-    padding: 1px;
+    padding: 1px 10px 1px 10px;
     margin: 1px;
     border: 2px green solid;
 }
@@ -111,7 +110,16 @@
     border: 1px solid #888;
     width: 80%;
 }
-
+table button {
+    font-size: 20px;
+    padding: 10px;
+    margin: 5px 10px 5px 1px;
+    background: gainsboro;
+    border: none;
+}
+table .title {
+    width: 5%;
+}
 #submit-delete-button {
     width: 100%;
     padding: 14px 20px;
