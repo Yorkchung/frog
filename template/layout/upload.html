@@ -32,9 +32,9 @@
                         <form action="/record/data" method="post" class="upload-form" id="upload-form">
                             <div class="input-box">
                                 <div class="choose-media-box">
-                                    <label for="name">物種名</label>
+                                    <label for="name">物種名</label><br>
                                     <input type="text" id="organismname" name="organismname"><br/>
-                                    標籤<br/>
+                                    <label for="name">標籤</label><br>
                                     <select name="tag">
                                         <option value="frog">蛙類</option>
                                         <option value="lepidoptera">蝶類</option>
@@ -144,7 +144,7 @@
                                         <option value="梭德氏赤蛙">梭德氏赤蛙</option>
                                     </select><br/>                                  -->  
                                     
-                                    年齡：<br/>
+                                    <label for="stage">年齡：</label><br>
                                     <select name="stage">
                                         <option value="幼年">幼年</option>
                                         <option value="中年">中年</option>
@@ -152,7 +152,7 @@
                                     </select><br/>
                                     
                                     
-                                    季節：<br/>
+                                    <label for="season">季節：</label><br>
                                     <select name="season">
                                         <option value="春季">春季</option>
                                         <option value="夏季">夏季</option>
@@ -165,14 +165,14 @@
                                     </select><br/>
                                     
                                     
-                                    性狀<br/>
-                                    <textarea name="status"></textarea><br/>
+                                    <label for="status">性狀</label><br>
+                                    <textarea name="status" rows="5" cols="35"></textarea><br/>
                                     
-                                    棲地<br/>
-                                    <textarea name="habitat"></textarea><br/>
+                                    <label for="habitat">棲地</label><br>
+                                    <textarea name="habitat" rows="5" cols="35"></textarea><br/>
 
-                                    備註<br/>
-                                    <textarea name="note"></textarea><br/>
+                                    <label for="note">備註</label><br>
+                                    <textarea name="note" rows="5" cols="35"></textarea><br/>
 
                                     <!--
                                     測試 one name multi value<br/>
