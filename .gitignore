@@ -1,0 +1,7 @@
+*.exe
+*.out
+*.o
+*.class
+Thumbs.db
+.DS_Store
+dbconnect.php
