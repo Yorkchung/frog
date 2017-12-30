@@ -87,7 +87,7 @@
     align-items: center;
     padding: 1px 10px 1px 10px;
     margin: 1px;
-    border: 2px green solid;
+    border: 3px rgb(100, 151, 96) solid;
 }
 
 .delete-data-div {
