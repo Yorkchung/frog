@@ -1,0 +1,22 @@
+body, select, button {
+    font-size: 20px;
+    line-height: 2em;
+}
+input {
+    font-size: 20px;
+    width: 150px;
+}
+select {
+    border: gray 2px dashed;
+}
+textarea {
+    font-size: 20px;
+    resize : none;
+}
+button {
+    background: rgb(113, 72, 60);
+    border: none;
+    color: white;
+    border-radius: 4px;
+    padding: 5px 20px;
+}
