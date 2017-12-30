@@ -2,6 +2,7 @@
 *.out
 *.o
 *.class
+*.local
 Thumbs.db
 .DS_Store
 dbconnect.php
