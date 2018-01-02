@@ -54,14 +54,40 @@ func register(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func uploadRecord(w http.ResponseWriter, r *http.Request) {
+func getLibraryData(w http.ResponseWriter, r *http.Request) {
+	records := searchLibraryData()
+	b, _ := json.Marshal(records)
+	w.Write(b)
+}
+
+func getLibraryByLabel(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	label := r.FormValue("label")
+	records := searchLibraryDataByLabel(label)
+	b, _ := json.Marshal(records)
+	w.Write(b)
+}
+
+func uploadLibraryWithCSV(w http.ResponseWriter, r *http.Request) {
+	successUpload := false
 	cu, _ := r.Cookie("username")
 	unFormatOK := filterUsername(cu.Value)
 	if unFormatOK == true {
 		UID, getUIDOK := getUIDByUsername(cu.Value)
 		catchFalse(getUIDOK, "get uid by username err")
-		storeRecord(w, r, UID)
+		successUpload = storeLibraryWithCSV(r, UID)
 	}
+	p := UploadPage{UploadStatus: successUpload}
+	b, _ := json.Marshal(p)
+	w.Write(b)
+}
+
+func updateLibraryData(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("modifyLibraryData")
+}
+
+func deleteLibraryData(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("deleteLibraryData")
 }
 
 func getRecord(w http.ResponseWriter, r *http.Request) {
@@ -130,18 +156,30 @@ func getRecordByRecordID(w http.ResponseWriter, r *http.Request) {
 	w.Write(b)
 }
 
-func modifyRecordByRecordID(w http.ResponseWriter, r *http.Request) {
-	successUpdate := false
-	successUpdate = alterRecordByRecordID(r)
-	p := UploadPage{UploadStatus: successUpdate}
-	b, _ := json.Marshal(p)
-	w.Write(b)
+func uploadRecord(w http.ResponseWriter, r *http.Request) {
+	cu, _ := r.Cookie("username")
+	unFormatOK := filterUsername(cu.Value)
+	if unFormatOK == true {
+		UID, getUIDOK := getUIDByUsername(cu.Value)
+		catchFalse(getUIDOK, "get uid by username err")
+		successStore := storeRecord(r, UID)
+		p := UploadPage{UploadStatus: successStore}
+		b, _ := json.Marshal(p)
+		w.Write(b)
+	}
 }
 
-func modifyRecordPhotosByRecordID(w http.ResponseWriter, r *http.Request) {
-	l := LibraryPage{}
-	b, _ := json.Marshal(l)
-	w.Write(b)
+func updateRecord(w http.ResponseWriter, r *http.Request) {
+	cu, _ := r.Cookie("username")
+	unFormatOK := filterUsername(cu.Value)
+	if unFormatOK == true {
+		UID, getUIDOK := getUIDByUsername(cu.Value)
+		catchFalse(getUIDOK, "get uid by username err")
+		successUpdate := alterRecordByRecordID(r, UID)
+		p := UpdatePage{UpdateStatus: successUpdate}
+		b, _ := json.Marshal(p)
+		w.Write(b)
+	}
 }
 
 func deleteRecordByRecordID(w http.ResponseWriter, r *http.Request) {
@@ -152,42 +190,6 @@ func deleteRecordByRecordID(w http.ResponseWriter, r *http.Request) {
 
 func deleteRecordPhotosByPhotoID() {
 
-}
-
-func getLibraryData(w http.ResponseWriter, r *http.Request) {
-	records := searchLibraryData()
-	b, _ := json.Marshal(records)
-	w.Write(b)
-}
-
-func getLibraryByLabel(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	label := r.FormValue("label")
-	records := searchLibraryDataByLabel(label)
-	b, _ := json.Marshal(records)
-	w.Write(b)
-}
-
-func uploadLibraryWithCSV(w http.ResponseWriter, r *http.Request) {
-	successUpload := false
-	cu, _ := r.Cookie("username")
-	unFormatOK := filterUsername(cu.Value)
-	if unFormatOK == true {
-		UID, getUIDOK := getUIDByUsername(cu.Value)
-		catchFalse(getUIDOK, "get uid by username err")
-		successUpload = storeLibraryWithCSV(r, UID)
-	}
-	p := UploadPage{UploadStatus: successUpload}
-	b, _ := json.Marshal(p)
-	w.Write(b)
-}
-
-func modifyLibraryData(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("modifyLibraryData")
-}
-
-func deleteLibraryData(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("deleteLibraryData")
 }
 
 func getGalleryByKeyword(w http.ResponseWriter, r *http.Request) {

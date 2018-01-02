@@ -25,6 +25,11 @@ type UploadPage struct {
 	UploadStatus bool
 }
 
+// UpdatePage .
+type UpdatePage struct {
+	UpdateStatus bool
+}
+
 // LibraryPage .
 type LibraryPage struct {
 	ModifyStatus bool

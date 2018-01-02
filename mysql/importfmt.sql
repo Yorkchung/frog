@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.18, for macos10.12 (x86_64)
 --
 -- Host: localhost    Database: frog
 -- ------------------------------------------------------
--- Server version	5.7.20
+-- Server version	5.7.18
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -124,7 +124,7 @@ CREATE TABLE `record` (
   `note` text,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `record` (
 
 LOCK TABLES `record` WRITE;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
-INSERT INTO `record` VALUES (1,1,'翡翠樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','此蛙體背翠綠，腹部呈現白色。眼球的虹彩則幾近金黃色。由鼻尖經眼眶到鼓膜上方的金黃色皮褶，為此蛙與其他種綠色樹蛙最主要的辨別特徵。具有單鳴囊，喜歡在灌叢上鳴叫。',NULL,'棲息於低海拔的果園或闊葉林中。繁殖季時成體蛙喜歡躲在底部有積水的植物體上鳴叫。','','2017-12-30 22:54:55'),(2,1,'台北樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','屬中小型之綠色樹蛙，體背為綠色，腹面、四肢蹼膜及眼部虹彩為黃色，部分個體腹側及鼠蹊部有淡藍色斑塊，但絕無黑色斑點，藉此可以和型態與牠類似的莫氏樹蛙區別。',NULL,'一般在廢棄的農耕地或闊葉林底層中出現。生殖季時首先由雄蛙在泥地中築起巢穴，然後在土洞中鳴叫以吸引雌蛙前來配對。','','2017-12-30 22:55:39'),(3,1,'諸羅樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','諸羅樹蛙屬中型蛙類，體長4-6公分。諸羅樹蛙的體背為綠色，腹面為白色，由吻端至四肢全緣均鑲上白邊。雄蛙具單一鳴囊，叫聲極為清徹響亮。',NULL,'諸羅樹蛙棲息的地點都與人類農耕有關，如荔枝園、芒果園、甘蔗園、鳳梨園、麻竹林、番石榴園、香蕉園、柑桔園、檳榔園及水田等。成蛙配對後其產卵的地點都是在農耕地的積水處，尤其是有草本植物或落葉覆蓋的遮蔽處產卵。','','2017-12-30 22:56:02'),(4,1,'布氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','原本廣泛分布於臺灣本島的白頷樹蛙（Polypedates megacephalus），於2010年已由Matsui 等人以分子生物的研究，以及重新標本檢視與分析聲紋等方式，將牠更名為布氏樹蛙（Polypedates braueri）。布氏樹蛙屬大型蛙類，雄蛙約5公分，雌蛙約7公分，體色呈黃褐色，背上有三到四條深色縱帶，但也有少部分個體沒有縱帶，眼鼻間到鼓膜上方有一皮褶，皮褶下有一條黑線。另外大腿內、外兩側具有網格狀的黑色花紋，是布氏樹蛙的重要辨識特徵。',NULL,'經常棲息在溪邊的樹上或是山區積水處的芒草叢上配對、產卵。產卵的地點在水池內壁上方或是枝葉上。','','2017-12-30 23:24:01');
+INSERT INTO `record` VALUES (1,1,'翡翠樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','此蛙體背翠綠，腹部呈現白色。眼球的虹彩則幾近金黃色。由鼻尖經眼眶到鼓膜上方的金黃色皮褶，為此蛙與其他種綠色樹蛙最主要的辨別特徵。具有單鳴囊，喜歡在灌叢上鳴叫。',NULL,'棲息於低海拔的果園或闊葉林中。繁殖季時成體蛙喜歡躲在底部有積水的植物體上鳴叫。','','2017-12-30 22:54:55'),(2,1,'台北樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','屬中小型之綠色樹蛙，體背為綠色，腹面、四肢蹼膜及眼部虹彩為黃色，部分個體腹側及鼠蹊部有淡藍色斑塊，但絕無黑色斑點，藉此可以和型態與牠類似的莫氏樹蛙區別。',NULL,'一般在廢棄的農耕地或闊葉林底層中出現。生殖季時首先由雄蛙在泥地中築起巢穴，然後在土洞中鳴叫以吸引雌蛙前來配對。','','2017-12-30 22:55:39'),(3,1,'諸羅樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','諸羅樹蛙屬中型蛙類，體長4-6公分。諸羅樹蛙的體背為綠色，腹面為白色，由吻端至四肢全緣均鑲上白邊。雄蛙具單一鳴囊，叫聲極為清徹響亮。',NULL,'諸羅樹蛙棲息的地點都與人類農耕有關，如荔枝園、芒果園、甘蔗園、鳳梨園、麻竹林、番石榴園、香蕉園、柑桔園、檳榔園及水田等。成蛙配對後其產卵的地點都是在農耕地的積水處，尤其是有草本植物或落葉覆蓋的遮蔽處產卵。','','2017-12-30 22:56:02'),(4,1,'布氏樹蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','原本廣泛分布於臺灣本島的白頷樹蛙（Polypedates megacephalus），於2010年已由Matsui 等人以分子生物的研究，以及重新標本檢視與分析聲紋等方式，將牠更名為布氏樹蛙（Polypedates braueri）。布氏樹蛙屬大型蛙類，雄蛙約5公分，雌蛙約7公分，體色呈黃褐色，背上有三到四條深色縱帶，但也有少部分個體沒有縱帶，眼鼻間到鼓膜上方有一皮褶，皮褶下有一條黑線。另外大腿內、外兩側具有網格狀的黑色花紋，是布氏樹蛙的重要辨識特徵。',NULL,'經常棲息在溪邊的樹上或是山區積水處的芒草叢上配對、產卵。產卵的地點在水池內壁上方或是枝葉上。','','2017-12-30 23:24:01'),(5,1,'小雨蛙',NULL,NULL,'frog',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'幼年','春季','小雨蛙屬小型蛙類，體長約2.5公分，體背具有對稱的深棕色花紋，自兩眼間斜行到大腿基部，部分個體具有背中線。此外，由吻端沿體側到鼠蹊部有黑色縱帶，是輔助辨識的特徵之一。',NULL,'小雨蛙白天會躲在石頭或泥土縫隙中，到了晚上則在草地上活動，或者是躲在落葉層中鳴叫，待其取得配對權後，才會移入水池或水田中產卵。','','2018-01-02 09:55:39');
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +156,7 @@ CREATE TABLE `photo` (
   `shootdatetime` datetime DEFAULT NULL,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +165,7 @@ CREATE TABLE `photo` (
 
 LOCK TABLES `photo` WRITE;
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-INSERT INTO `photo` VALUES (1,1,1,'ylfhdrwkbshculbde5keclhna4uhx762sft.jpg','1.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:54:55'),(2,1,1,'2hg8quji3h3drvrf29tykqpnoysb2gtqi5x.jpg','2.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:54:55'),(3,1,2,'yjszogersl1z93xxrc57gljsewu3enlwmiy.jpg','3.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:55:39'),(4,1,3,'4cbc6gr5cl5ykyudo97dotzxer9wzlf3tv8.jpg','4.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:56:02'),(5,1,4,'oga8pw1l5dc18k87kbvd3aofi8hi8mjm74t.jpg','5.jpg',NULL,NULL,NULL,NULL,'2017-12-30 23:24:01'),(6,1,4,'4swl5xgpqxc4oako5i63p3wo3rx8yv7jegb.jpg','6.jpg',NULL,NULL,NULL,NULL,'2017-12-30 23:24:01'),(7,1,4,'hkg1ejhyd1nuy1ngxq6bhby64tm4icf43bu.jpg','7.jpg',NULL,NULL,NULL,NULL,'2017-12-30 23:24:01');
+INSERT INTO `photo` VALUES (1,1,1,'ylfhdrwkbshculbde5keclhna4uhx762sft.jpg','1.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:54:55'),(2,1,1,'2hg8quji3h3drvrf29tykqpnoysb2gtqi5x.jpg','2.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:54:55'),(3,1,2,'yjszogersl1z93xxrc57gljsewu3enlwmiy.jpg','3.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:55:39'),(4,1,3,'4cbc6gr5cl5ykyudo97dotzxer9wzlf3tv8.jpg','4.jpg',NULL,NULL,NULL,NULL,'2017-12-30 22:56:02'),(5,1,4,'oga8pw1l5dc18k87kbvd3aofi8hi8mjm74t.jpg','5.jpg',NULL,NULL,NULL,NULL,'2017-12-30 23:24:01'),(6,1,4,'4swl5xgpqxc4oako5i63p3wo3rx8yv7jegb.jpg','6.jpg',NULL,NULL,NULL,NULL,'2017-12-30 23:24:01'),(7,1,4,'hkg1ejhyd1nuy1ngxq6bhby64tm4icf43bu.jpg','7.jpg',NULL,NULL,NULL,NULL,'2017-12-30 23:24:01'),(8,1,5,'5dol9vxaiulshp88aubhdey11r8dlhzuftc.jpg','1.jpg',NULL,NULL,NULL,NULL,'2018-01-02 09:55:39'),(9,1,5,'g9hxx7oerclywxwtcyeuk52jso155f1n9zf.jpg','2.jpg',NULL,NULL,NULL,NULL,'2018-01-02 09:55:39');
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -178,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-30 23:52:10
+-- Dump completed on 2018-01-02  9:58:04
