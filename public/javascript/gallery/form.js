@@ -9,6 +9,7 @@ $( "#records-frog" ).click(function(e) {
         //console.log(result);
 
         var key = [];
+        var photos=[];
         jQuery.each(result.GroupByTag, function(name) {
             key.push(name);
         });
@@ -17,7 +18,7 @@ $( "#records-frog" ).click(function(e) {
         var count=0;
         for(var i=0;i<key.length;i++){
             jQuery.each(result.GroupByTag[key[i]], function(index, photoSrc){
-                imgDivHTML += "<img class='showAlbum' width='100' height='100' src='/storage/photo/" + photoSrc + "'>";
+                imgDivHTML += "<img class='showAlbum' width='200' height='200' src='/storage/photo/" + photoSrc +"' style='padding:10px;''>";
                 count++;
                 if(count==5){
                 imgDivHTML += "<br/>"
@@ -25,11 +26,17 @@ $( "#records-frog" ).click(function(e) {
                 }
             });
         }
+        
         $('#records-data').prepend(imgDivHTML);
         $(".showAlbum").click(function(e){
+            image=$(this).attr("src");
+            console.log(image);
+           // key.push(result.GroupByTag);
+            //console.log(key);
+           // photos.push(result.GroupByTag[key[0]]);
             swal({
-                type: 'info',
-                html: '<h1>dffd</h1>'+result.GroupByTag['莫氏樹蛙']+'<img src="">'
+                
+                html: '<img width="400" height="400" src="'+image+'">'
             });
         });
     });
