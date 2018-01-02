@@ -18,3 +18,11 @@
     margin: 1px;
     border: 3px rgb(100, 151, 96) solid;
 }
+.Photo {
+    display: flex;
+    flex-direction: row;
+    margin: 15px;
+}
+.PhotoSrc {
+    height: 80%;
+}
