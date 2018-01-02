@@ -7,28 +7,23 @@ $( document ).ready(function() {
         data: { recordid: id }
     }).done(function( searchResult ) {
         var result = $.parseJSON(searchResult);
-        //console.log(result.ID);
-        //console.log(result.OrganismName);
-        //console.log(result.Food);
-        //console.log(result.Stage);
-        //console.log(result.Habitat);
-        //console.log(result.Note);
-		//PhotoLatitude
-		//PhotoLongitude
         console.log(result);
         
         HTML = "";
-        HTML += "<p class='OrganismName'>" + result.OrganismName + "</p><br/>";
-        HTML += "<p class='Food'>" + result.Food + "</p><br/>";
-        HTML += "<p class='Season'>" + result.Season + "</p><br/>";
-        HTML += "<p class='Stage'>" + result.Stage + "</p><br/>";
-        HTML += "<p class='Status'>" + result.Status + "</p><br/>";
-        HTML += "<p class='Habitat'>" + result.Habitat + "</p><br/>";
-        HTML += "<p class='Note'>" + result.Note + "</p><br/>";
+        HTML += "<a herf='records.html'></a>";
+        HTML += "<h2>物種名&nbsp:&nbsp;<class='OrganismName'>" + result.OrganismName + "</h2><a href='http://127.0.0.1/records'>返回</a>";
+        // HTML += "<tr><td></td><td class='Food'>" + result.Food + "</td><tr/>";
+        HTML += "<table><tr><td class='title'>季節</td><td class='Season'>" + result.Season + "</td><tr/>";
+        HTML += "<tr><td class='title'>年齡</td><td class='Stage'>" + result.Stage + "</td><tr/>";
+        HTML += "<tr><td class='title'>性狀</td><td class='Status'>" + result.Status + "</td><tr/>";
+        HTML += "<tr><td class='title'>棲息地</td><td class='Habitat'>" + result.Habitat + "</td><tr/>";
+        HTML += "<tr><td class='title'>備註</td><td class='Note'>" + result.Note + "</td><tr/></table>";
+        HTML += "<div class='Photo'>";
 
         jQuery.each(result.PhotoSrc, function(i, val) {
             HTML += "<img class='PhotoSrc' src='/storage/photo/" + result.PhotoSrc[i] + "' ><br/>";
         });
+        HTML += "</div>";
         $('#record-data').prepend(HTML);                          
     });
 });
