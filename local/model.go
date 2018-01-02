@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/csv"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -181,7 +180,7 @@ func searchRecordsByTag(tag string) Records {
 	}
 
 	for index, id := range recordIDs {
-		organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
+		organismname, food, stage, season, status, habitat, note, createtime := "", "", "", "", "", "", "", ""
 		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
 		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
 		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
@@ -189,6 +188,7 @@ func searchRecordsByTag(tag string) Records {
 		db.QueryRow("SELECT status FROM record WHERE id = ?", id).Scan(&status)
 		db.QueryRow("SELECT habitat FROM record WHERE id = ?", id).Scan(&habitat)
 		db.QueryRow("SELECT note FROM record WHERE id = ?", id).Scan(&note)
+		db.QueryRow("SELECT createtime FROM record WHERE id = ?", id).Scan(&createtime)
 
 		r := Record{
 			ID:           id,
@@ -198,7 +198,8 @@ func searchRecordsByTag(tag string) Records {
 			Season:       season,
 			Status:       status,
 			Habitat:      habitat,
-			Note:         note}
+			Note:         note,
+			CrateTime:    createtime}
 		r.PhotoSrc = make(map[int]string)
 		idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
 		checkErr(queryErr, "query photo path from record with mysql error")
@@ -327,21 +328,8 @@ func searchRecordsByDateRange(dateFrom, dateTo string) Records {
 	return records
 }
 
-/*
-func checkOrganismNameExistByOrganismName(organismName string) bool {
-	var o string
-	exist := false
-	err := db.QueryRow("SELECT organismname FROM record WHERE organismname = ?", organismName).Scan(&o)
-	checkErr(err, "can not get username")
-	if err == nil && o != "" {
-		exist = true
-	}
-	return exist
-}
-*/
-
 func storeLibraryWithCSV(r *http.Request, UID string) bool {
-	successStoreRecord := false
+	successStoreLibrary := false
 	/*
 		尚未實作：
 		解析表單
@@ -362,9 +350,8 @@ func storeLibraryWithCSV(r *http.Request, UID string) bool {
 			fmt.Println("read", csvPath, err)
 		}
 
-		result, storeRecordErr := db.Exec("INSERT INTO library SET organismname=?, label=?, species=?, status=?, habitat=?,createtime=CURRENT_TIMESTAMP", record[2], "lepidoptera", record[2], record[3], record[4])
-		fmt.Println(storeRecordErr)
-		if storeRecordErr == nil {
+		result, storeLibraryErr := db.Exec("INSERT INTO library SET organismname=?, label=?, species=?, status=?, habitat=?,createtime=CURRENT_TIMESTAMP", record[2], "lepidoptera", record[2], record[3], record[4])
+		if storeLibraryErr == nil {
 			id, getRecordIDErr := result.LastInsertId()
 			if getRecordIDErr == nil {
 				recordID := strconv.FormatInt(id, 10)
@@ -380,12 +367,11 @@ func storeLibraryWithCSV(r *http.Request, UID string) bool {
 				*/
 			}
 		}
-
 	}
-	return successStoreRecord
+	return successStoreLibrary
 }
 
-func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
+func storeRecord(r *http.Request, UID string) bool {
 	successStore := true
 	if err := r.ParseMultipartForm(32 << 20); err != nil {
 		checkWarn(err, "ParseMultipartForm err")
@@ -408,7 +394,6 @@ func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
 				//fmt.Println(key, value)
 				if len(value) == 1 {
 					updateCommand := "UPDATE record SET `" + key + "`=?" + " WHERE id=?"
-					//fmt.Println(updateCommand)
 					_, updateErr := db.Exec(updateCommand, value[0], recordID)
 					if updateErr != nil {
 						successStore = false
@@ -431,15 +416,10 @@ func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
 						photoExt := filepath.Ext(fileHeader.Filename)
 						photoPath := randString + photoExt
 
-						//newFile, _ := os.Create(frogConfig.StoragePath + "photo/" + photoPath)
-						//defer newFile.Close()
-						//io.Copy(newFile, file)
-
 						buf, _ := ioutil.ReadAll(file)
 						ioutil.WriteFile(frogConfig.StoragePath+"photo/"+photoPath, buf, os.ModePerm)
 
 						data, decodeErr := exif.Read(frogConfig.StoragePath + "photo/" + photoPath)
-						//_, decodeErr := exif.Read(frogConfig.StoragePath + "photo/" + photoPath)
 
 						checkWarn(decodeErr, "decode photo exif err")
 
@@ -514,9 +494,7 @@ func storeRecord(w http.ResponseWriter, r *http.Request, UID string) {
 			}
 		}
 	}
-	p := UploadPage{UploadStatus: successStore}
-	b, _ := json.Marshal(p)
-	w.Write(b)
+	return successStore
 }
 
 func searchRecordByRecordID(recordID string) Record {
@@ -564,17 +542,112 @@ func searchRecordByRecordID(recordID string) Record {
 	return r
 }
 
-func alterRecordByRecordID(r *http.Request) bool {
+func alterRecordByRecordID(r *http.Request, UID string) bool {
 	successAlter := true
-	r.ParseMultipartForm(32 << 20)
-	recordID := r.Form.Get("recordid")
-	for key, values := range r.Form {
-		for _, value := range values {
-			updateCommand := "UPDATE record SET " + key + "=?" + " WHERE id=?"
-			// when value quantity == 1, can do this
-			_, updateErr := db.Exec(updateCommand, value, recordID)
+	if err := r.ParseMultipartForm(32 << 20); err != nil {
+		checkWarn(err, "ParseMultipartForm err")
+	}
+
+	form := r.MultipartForm
+	recordID := form.Value["recordid"][0]
+
+	for key, value := range r.MultipartForm.Value {
+		if key == "photos" {
+			continue
+		}
+		if len(value) == 1 {
+			updateCommand := "UPDATE record SET `" + key + "`=?" + " WHERE id=?"
+			_, updateErr := db.Exec(updateCommand, value[0], recordID)
 			if updateErr != nil {
 				successAlter = false
+			}
+		} else {
+
+		}
+	}
+
+	for _, fileHeaders := range r.MultipartForm.File {
+		if len(fileHeaders) > 0 {
+			for _, fileHeader := range fileHeaders {
+				file, _ := fileHeader.Open()
+				defer file.Close()
+
+				randString := newRandomString(35)
+				photoExt := filepath.Ext(fileHeader.Filename)
+				photoPath := randString + photoExt
+
+				buf, _ := ioutil.ReadAll(file)
+				ioutil.WriteFile(frogConfig.StoragePath+"photo/"+photoPath, buf, os.ModePerm)
+
+				data, decodeErr := exif.Read(frogConfig.StoragePath + "photo/" + photoPath)
+
+				checkWarn(decodeErr, "decode photo exif err")
+
+				if decodeErr != nil {
+					_, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename)
+					checkErr(storeRecordPhotoErr, "store record photo err")
+					if storeRecordPhotoErr != nil {
+						successAlter = false
+					}
+				} else {
+					latitudePosition, longitudePosition, latitudeValue, longitudeValue, dateAndTime := "", "", "", "", ""
+					for key, value := range data.Tags {
+						switch key {
+						case "North or South Latitude":
+							latitudePosition = value
+						case "East or West Longitude":
+							longitudePosition = value
+						case "Latitude":
+							latitudeValue = value
+						case "Longitude":
+							longitudeValue = value
+						case "Date and Time":
+							dateAndTime = value
+							charsDateAndTime := []rune(dateAndTime)
+							charsDateAndTime[4], charsDateAndTime[7] = '-', '-'
+							dateAndTime = string(charsDateAndTime)
+						}
+					}
+					if latitudePosition != "" && longitudePosition != "" && latitudeValue != "" && longitudeValue != "" {
+						latitude, longitude := parseCoordinate(latitudeValue, latitudePosition, longitudeValue, longitudePosition)
+						result, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, longitude=?, latitude=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename, longitude, latitude)
+						checkErr(storeRecordPhotoErr, "store record photo err")
+						if storeRecordPhotoErr != nil {
+							successAlter = false
+						} else {
+							id, getPhotoIDErr := result.LastInsertId()
+							if getPhotoIDErr == nil {
+								photoID := strconv.FormatInt(id, 10)
+								if dateAndTime != "" {
+									updateCommand := "UPDATE photo SET `dateAndTime`=? WHERE id=?"
+									_, updateErr := db.Exec(updateCommand, dateAndTime, photoID)
+									if updateErr != nil {
+										successAlter = false
+									}
+								}
+							}
+						}
+					}
+					if latitudePosition == "" || longitudePosition == "" || latitudeValue == "" || longitudeValue == "" {
+						result, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename)
+						checkErr(storeRecordPhotoErr, "store record photo err")
+						if storeRecordPhotoErr != nil {
+							id, getPhotoIDErr := result.LastInsertId()
+							if getPhotoIDErr != nil {
+								successAlter = false
+							} else {
+								photoID := strconv.FormatInt(id, 10)
+								if dateAndTime != "" {
+									updateCommand := "UPDATE photo SET `dateAndTime`=? WHERE id=?"
+									_, updateErr := db.Exec(updateCommand, dateAndTime, photoID)
+									if updateErr != nil {
+										successAlter = false
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -588,11 +661,24 @@ func alterRecordPhotoByRecordID(r *http.Request) bool {
 
 func removeRecordByRecordID(recordID string) bool {
 	successDelete := false
-	_, deleteRecordWithMysqlErr := db.Exec("DELETE FROM record WHERE id=?", recordID)
+	_, deleteRecordWithMysqlErr := db.Exec("DELETE FROM record WHERE id = ?", recordID)
 	checkErr(deleteRecordWithMysqlErr, "deleteRecordWithMysqlErr")
 	if deleteRecordWithMysqlErr == nil {
+		removeRecordPhotoByRecordID(recordID)
 		successDelete = true
 	}
+	return successDelete
+}
+
+// 刪除圖檔未實作
+func removeRecordPhotoByRecordID(recordID string) bool {
+	successDelete := false
+	_, deleteRecordPhotoWithMysqlErr := db.Exec("DELETE FROM record WHERE id=?", recordID)
+	checkErr(deleteRecordPhotoWithMysqlErr, "deleteRecordPhotoWithMysqlErr")
+	if deleteRecordPhotoWithMysqlErr == nil {
+		successDelete = true
+	}
+	fmt.Println("successDelete", successDelete)
 	return successDelete
 }
 

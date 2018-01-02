@@ -109,7 +109,7 @@ func recordDataController(w http.ResponseWriter, r *http.Request) {
 	case "PATCH":
 		loginStatus := verifyLoginStatus(r)
 		if loginStatus == true {
-
+			updateRecord(w, r)
 		}
 	case "DELETE":
 		loginStatus := verifyLoginStatus(r)

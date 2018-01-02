@@ -99,21 +99,16 @@
 }
 
 .single-album-div ul {
+	display: none;
+    justify-content: center;
 	list-style: none;
 }
 
 .single-album-div ul li {
 	display: none;
-	list-style: none;
-	z-index: 1;
+    list-style: none;
+    text-align: center;
 }
-
-.single-album-div ul li.selected {
-	display: flex;
-	justify-content: center;
-	z-index: 99;
-}
-
 
 .prev img {
 	width: 48px;
@@ -158,8 +153,167 @@
     to {transform: scale(1)}
 }
 
+
+/* 下面這段 先留著別刪! */
 /*
+.container {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    border: 10px solid #333;
+}
+
+.bottom {
+    display: flex;
+}
+
+.top .bar {
+    display: flex;
+    flex-direction: row;
+}
+
+.top .bar .nav {
+    
+}
+
+.top .bar .nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.top .bar .nav ul li {
+    float: left;
+}
+
+.top .bar .nav ul li button {
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: #333;
+}
+
+.top .bar .nav ul li button:hover:not(.active) {
+    background-color: #000000;
+}
+
+.top .bar .nav ul li a {
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: #333;
+}
+
+.top .bar .nav ul li a:hover:not(.active) {
+    background-color: #000000;
+}
+
+
+.top .bar .nav .active {
+    background-color: red;
+}
+
+.album {
+	display: none;
+	align-items: center;
+	justify-content: space-around;
+	position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+	padding-top: 30px;
+}
+
+.single-album-div {
+	display: flex;
+	justify-content: center;
+	position: relative;
+   	margin: 3% 3%;
+    border: 1px solid #888;
+	width: 80%;
+	overflow: hidden;
+	background-color: #ffffff;
+}
+
+.single-album-div ul {
+	display: none;
+    justify-content: center;
+	list-style: none;
+}
+
+.single-album-div ul li {
+	display: none;
+    list-style: none;
+    text-align: center;
+}
+
+.prev img {
+	width: 48px;
+	height: 48px;
+}
+
+.next img {
+	width: 48px;
+	height: 48px;
+}
+
+.close-album-div-button {
+    position: absolute;
+    right: 15px;
+	top: 0;
+	width: 48px;
+	height: 48px;
+    color: #000000;
+    font-size: 35px;
+	font-weight: bold;
+	background: #ffffff;
+}
+
+.close-album-div-button:hover,
+.close-album-div-button:focus {
+    color: red;
+    cursor: pointer;
+}
+
+.single-album-div-animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
 img {
 	width: 80%;
-	height: auto;
-}*/
+    height: auto;
+    max-height: 90%;
+}
+*/
