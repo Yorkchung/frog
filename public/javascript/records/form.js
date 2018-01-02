@@ -9,13 +9,11 @@ $( "#records-frog" ).click(function(e) {
         $( "#records-data" ).empty();
         jQuery.each(result.Records, function(i, val) {
             var searchResultHTML = "<div>";
+            
             searchResultHTML += "<table id='" + val.ID +  "' border='1'><tbody>";
-            searchResultHTML += "<tr><td>種類</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
-            /*
-            searchResultHTML += "<tr><td>性狀</td><td class='dataStatus'>" + val.Status + "</td></tr>";
-            searchResultHTML += "<tr><td>棲地</td><td class='dataHabitat'>" + val.Habitat + "</td></tr>";
-            */
-            searchResultHTML += "<tr><td>操作</td><td><button class='getRecordByRecordID' value='" + val.ID + "'>細節</button></td></tr>";
+            searchResultHTML += "<tr><td>上傳時間</td><td class='dataStatus'>" + val.CrateTime + "</td></tr>";
+            searchResultHTML += "<tr><td>物種名</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
+            searchResultHTML += "<tr><td>操作</td><td><button class='getRecordByRecordID' value='" + val.ID + "'>細節</button><button class='deleteRecordByRecordID' value='" + val.ID + "'>刪除</button></td></tr>";
             searchResultHTML += "</tbody></table>";
             searchResultHTML += "</div></br>";
             searchResultHTML += '';
@@ -26,6 +24,20 @@ $( "#records-frog" ).click(function(e) {
             id = $(this).val();
             location.href = "/record?" + id;
         });
+        
+        $( ".deleteRecordByRecordID" ).click(function(e) {
+            id = $(this).val();
+            $.ajax({
+                url : "/record/data" + '?' + $.param({"recordid" : id}),
+                type: "DELETE"
+            }).done(function( deleteResult ) {;
+                 var result = $.parseJSON(deleteResult);
+                 if (result.DeleteStatus == true) {
+                     //location.reload();
+                 }
+            });
+        });
+        
     });
 });
 
@@ -43,10 +55,6 @@ $( "#records-lepidoptera" ).click(function(e) {
             searchResultHTML += "<table id='" + val.ID +  "' border='1'><tbody>";
             searchResultHTML += "<tr><td>種類</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
             searchResultHTML += "<tr><td>日期</td><td class='dataStatus'>" + val.CrateTime + "</td></tr>";
-            /*
-                searchResultHTML += "<tr><td>性狀</td><td class='dataStatus'>" + val.Status + "</td></tr>";
-                searchResultHTML += "<tr><td>棲地</td><td class='dataHabitat'>" + val.Habitat + "</td></tr>";
-            */
             searchResultHTML += "<tr><td>操作</td><td><button class='getRecordByRecordID' value='" + val.ID + "'>細節</button></td></tr>";
             searchResultHTML += "</tbody></table>";
             searchResultHTML += "</div></br>";
@@ -56,16 +64,23 @@ $( "#records-lepidoptera" ).click(function(e) {
 
         $( ".getRecordByRecordID" ).click(function(e) {
             id = $(this).val();
+            location.href = "/record?" + id;
+        });
+        
+        $( ".deleteRecordByRecordID" ).click(function(e) {
+            id = $(this).val();
             $.ajax({
-                type: "GET",
-                url : "/record/data",
-                data: { recordid: id }
-            }).done(function( searchResult ) {;
-                var result = $.parseJSON(searchResult);
-                console.log(result); //單筆記錄
+                url : "/record/data" + '?' + $.param({"recordid" : id}),
+                type: "DELETE"
+            }).done(function( deleteResult ) {;
+                 var result = $.parseJSON(deleteResult);
+                 if (result.DeleteStatus == true) {
+                     //location.reload();
+                 }
             });
         });
 
+        
     });
 });
 
@@ -95,13 +110,19 @@ $( "#records-plant" ).click(function(e) {
         
         $( ".getRecordByRecordID" ).click(function(e) {
             id = $(this).val();
+            location.href = "/record?" + id;
+        });
+        
+        $( ".deleteRecordByRecordID" ).click(function(e) {
+            id = $(this).val();
             $.ajax({
-                type: "GET",
-                url : "/record/data",
-                data: { recordid: id }
-            }).done(function( searchResult ) {;
-                var result = $.parseJSON(searchResult);
-                console.log(result);
+                url : "/record/data" + '?' + $.param({"recordid" : id}),
+                type: "DELETE"
+            }).done(function( deleteResult ) {;
+                 var result = $.parseJSON(deleteResult);
+                 if (result.DeleteStatus == true) {
+                     //location.reload();
+                 }
             });
         });
 

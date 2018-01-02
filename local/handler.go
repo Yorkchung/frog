@@ -184,8 +184,11 @@ func updateRecord(w http.ResponseWriter, r *http.Request) {
 
 func deleteRecordByRecordID(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	removeRecordByRecordID(r.FormValue("recordid"))
-	// need return json tall ok or not, and ajax reload
+	recordID := r.Form.Get("recordid")
+	successDelete := removeRecordByRecordID(recordID)
+	p := RecordsPage{DeleteStatus: successDelete}
+	b, _ := json.Marshal(p)
+	w.Write(b)
 }
 
 func deleteRecordPhotosByPhotoID() {

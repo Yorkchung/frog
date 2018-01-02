@@ -180,7 +180,7 @@ func searchRecordsByTag(tag string) Records {
 	}
 
 	for index, id := range recordIDs {
-		organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
+		organismname, food, stage, season, status, habitat, note, createtime := "", "", "", "", "", "", "", ""
 		db.QueryRow("SELECT organismname FROM record WHERE id = ?", id).Scan(&organismname)
 		db.QueryRow("SELECT food FROM record WHERE id = ?", id).Scan(&food)
 		db.QueryRow("SELECT stage FROM record WHERE id = ?", id).Scan(&stage)
@@ -188,6 +188,7 @@ func searchRecordsByTag(tag string) Records {
 		db.QueryRow("SELECT status FROM record WHERE id = ?", id).Scan(&status)
 		db.QueryRow("SELECT habitat FROM record WHERE id = ?", id).Scan(&habitat)
 		db.QueryRow("SELECT note FROM record WHERE id = ?", id).Scan(&note)
+		db.QueryRow("SELECT createtime FROM record WHERE id = ?", id).Scan(&createtime)
 
 		r := Record{
 			ID:           id,
@@ -197,7 +198,8 @@ func searchRecordsByTag(tag string) Records {
 			Season:       season,
 			Status:       status,
 			Habitat:      habitat,
-			Note:         note}
+			Note:         note,
+			CrateTime:    createtime}
 		r.PhotoSrc = make(map[int]string)
 		idrows, queryErr := db.Query("SELECT path FROM photo WHERE recordid = ?", id)
 		checkErr(queryErr, "query photo path from record with mysql error")
@@ -659,11 +661,24 @@ func alterRecordPhotoByRecordID(r *http.Request) bool {
 
 func removeRecordByRecordID(recordID string) bool {
 	successDelete := false
-	_, deleteRecordWithMysqlErr := db.Exec("DELETE FROM record WHERE id=?", recordID)
+	_, deleteRecordWithMysqlErr := db.Exec("DELETE FROM record WHERE id = ?", recordID)
 	checkErr(deleteRecordWithMysqlErr, "deleteRecordWithMysqlErr")
 	if deleteRecordWithMysqlErr == nil {
+		removeRecordPhotoByRecordID(recordID)
 		successDelete = true
 	}
+	return successDelete
+}
+
+// 刪除圖檔未實作
+func removeRecordPhotoByRecordID(recordID string) bool {
+	successDelete := false
+	_, deleteRecordPhotoWithMysqlErr := db.Exec("DELETE FROM record WHERE id=?", recordID)
+	checkErr(deleteRecordPhotoWithMysqlErr, "deleteRecordPhotoWithMysqlErr")
+	if deleteRecordPhotoWithMysqlErr == nil {
+		successDelete = true
+	}
+	fmt.Println("successDelete", successDelete)
 	return successDelete
 }
 

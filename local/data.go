@@ -30,6 +30,11 @@ type UpdatePage struct {
 	UpdateStatus bool
 }
 
+// RecordsPage
+type RecordsPage struct {
+	DeleteStatus bool
+}
+
 // LibraryPage .
 type LibraryPage struct {
 	ModifyStatus bool
