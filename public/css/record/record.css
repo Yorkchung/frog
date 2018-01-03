@@ -4,6 +4,17 @@
     flex-direction: column;
     min-width: 100%;
 }
+.back_to_records {
+    text-decoration: none;
+    position: absolute;
+    top: 25px;
+    right: 5px;
+    padding: 15px 20px;
+    background: gray;
+    color: white;
+    margin: 10px 10px 0px 6px;
+    border-radius: 10px;
+}
 .main table {
     display: flex;
     align-items: center;

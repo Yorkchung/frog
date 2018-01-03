@@ -10,8 +10,8 @@ $( document ).ready(function() {
         console.log(result);
         
         HTML = "";
-        HTML += "<a herf='records.html'></a>";
-        HTML += "<h2>物種名&nbsp:&nbsp;<class='OrganismName'>" + result.OrganismName + "</h2><a href='http://127.0.0.1/records'>返回</a>";
+        // HTML += "<a herf='records.html'></a>";
+        HTML += "<h2>物種名&nbsp:&nbsp;<class='OrganismName'>" + result.OrganismName + "</h2><a href='http://127.0.0.1/records' class='back_to_records'>返回</a>";
         // HTML += "<tr><td></td><td class='Food'>" + result.Food + "</td><tr/>";
         HTML += "<table><tr><td class='title'>季節</td><td class='Season'>" + result.Season + "</td><tr/>";
         HTML += "<tr><td class='title'>年齡</td><td class='Stage'>" + result.Stage + "</td><tr/>";
