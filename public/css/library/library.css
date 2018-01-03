@@ -63,7 +63,16 @@
 .top .bar .nav .active {
     background-color: red;
 }
-
+.back_to_home {
+    text-decoration: none;
+    position: absolute;
+    right: 5px;
+    padding: 15px 20px;
+    background: gray;
+    color: white;
+    margin: 10px 10px 0px 6px;
+    border-radius: 10px;
+}
 .main .library-data {
     display: flex;
     flex-direction: column;
