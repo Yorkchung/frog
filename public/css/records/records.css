@@ -1,3 +1,6 @@
+body {
+    font-family: arial, sans-serif;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -44,7 +47,7 @@
     display: block;
     color: #ffffff;
     text-align: center;
-    padding: 14px 16px;
+    padding: 17px 16px;
     text-decoration: none;
     background-color: #333;
 }
@@ -57,7 +60,7 @@
     display: block;
     color: #ffffff;
     text-align: center;
-    padding: 14px 16px;
+    padding: 20px 16px 14px 16px;
     text-decoration: none;
     background-color: #333;
 }
@@ -70,7 +73,33 @@
 .top .bar .nav .active {
     background-color: red;
 }
+.records-data {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.records-data table {
+    border-collapse: collapse;
+    margin: 10px;
+    font-size: 20px;
+}
 
+.records-data tr, td {
+    padding: 10px;
+    border: 3px rgb(100, 151, 96) solid;
+}
+
+.records-data button {
+    font-size: 20px;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    background: darkslategray;
+    color: white;
+}
+
+/*
 .single-record-data {
     display: none;
     position: fixed;
@@ -114,7 +143,7 @@
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s
 }
-
+*/
 @-webkit-keyframes animatezoom {
     from {-webkit-transform: scale(0)} 
     to {-webkit-transform: scale(1)}
