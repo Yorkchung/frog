@@ -1,3 +1,4 @@
+/*
 $( "#records-frog" ).click(function(e) {
     $.ajax({
         type: "GET",
@@ -67,10 +68,10 @@ $( "#records-plant" ).click(function(e) {
 $( "#close-album-div-button" ).click(function(e) {
     $( "#album" ).hide();
 });
-
+*/
 
 //下面這段先留著 別刪！
-/*
+
 $( "#records-frog" ).click(function(e) {
     $.ajax({
         type: "GET",
@@ -148,4 +149,3 @@ $(".prev").click(function(){
         return false;
     }
 });
-*/

@@ -19,24 +19,85 @@
     padding: 5px;
 }
 
-/*.bottom {
-    display: flex;
-}*/
+/**/
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #3c3c3c;
+}
+
+.nav ul li {
+    background-color: #000000;
+    float: left;
+}
+
+.nav ul li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav ul li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.nav ul li .dropdown-content a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+.nav ul li .dropdown-content a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.nav ul li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #3c3c3c;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/*
 
 .top .bar {
     display: flex;
     flex-direction: row;
 }
-/*
-.top .bar .nav {
-    
-}*/
+
+
 .top .bar .nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /*background-color: #333;*/ 
 }
 
 .top .bar .nav ul li {
@@ -63,6 +124,7 @@
 .top .bar .nav .active {
     background-color: red;
 }
+
 .back_to_home {
     text-decoration: none;
     position: absolute;
@@ -73,6 +135,7 @@
     margin: 10px 10px 0px 6px;
     border-radius: 10px;
 }
+*/
 .main .library-data {
     display: flex;
     flex-direction: column;
@@ -86,11 +149,13 @@
     font-size: 20px;
 }
 
-/*.main .library-data td {
+/*
+.main .library-data td {
     display: flex;
     align-items: center;
     margin: 1px;
-}*/
+}
+*/
 
 .main .library-data tr, td {
     /*display: flex;*/
@@ -130,6 +195,7 @@ table button {
 table .title {
     width: 5%;
 }
+
 #submit-delete-button {
     width: 100%;
     padding: 14px 20px;

@@ -63,9 +63,15 @@ func getLibraryData(w http.ResponseWriter, r *http.Request) {
 func getLibraryByLabel(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	label := r.FormValue("label")
-	records := searchLibraryDataByLabel(label)
-	b, _ := json.Marshal(records)
-	w.Write(b)
+	if label == "" {
+		records := searchLibraryData()
+		b, _ := json.Marshal(records)
+		w.Write(b)
+	} else {
+		records := searchLibraryDataByLabel(label)
+		b, _ := json.Marshal(records)
+		w.Write(b)
+	}
 }
 
 func uploadLibraryWithCSV(w http.ResponseWriter, r *http.Request) {
