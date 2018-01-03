@@ -22,14 +22,13 @@ body {
     display: flex;
 }
 
+/****bar--start****/
+/* extend bar
 .top .bar {
     display: flex;
     flex-direction: row;
 }
-
-.top .bar .nav {
-    
-}
+*/
 
 .top .bar .nav ul {
     list-style-type: none;
@@ -53,7 +52,7 @@ body {
 }
 
 .top .bar .nav ul li button:hover:not(.active) {
-    background-color: #000000;
+    background-color: #000;
 }
 
 .top .bar .nav ul li a {
@@ -73,6 +72,8 @@ body {
 .top .bar .nav .active {
     background-color: red;
 }
+/*bar--end*/
+
 .records-data {
     display: flex;
     flex-direction: row;
