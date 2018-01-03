@@ -86,24 +86,19 @@
 }
 
 /*
-
 .top .bar {
     display: flex;
     flex-direction: row;
 }
-
-
 .top .bar .nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
-
 .top .bar .nav ul li {
     float: left;
 }
-
 .top .bar .nav ul li button {
     display: block;
     color: #ffffff;
@@ -116,15 +111,12 @@
     border-radius: 15px;
     margin: 3px;
 }
-
 .top .bar .nav ul li button:hover:not(.active) {
     background-color: #000000;
 }
-
 .top .bar .nav .active {
     background-color: red;
 }
-
 .back_to_home {
     text-decoration: none;
     position: absolute;
