@@ -29,15 +29,40 @@
     margin: 1px;
     border: 3px rgb(100, 151, 96) solid;
 }
+/*
 .Photo {
-    display: flex;
+    display:flex;
     flex-direction: row;
     margin: 15px;
+}
+*/
+.Photo {
+    margin: 15px;
+    height: 500px;
+    width: 50%;
+    position: absolute;
+    left: 25%;
 }
 .title {
     width: 7%;
     padding: 10px;
 }
+
+/*
 .PhotoSrc {
-    height: 80%;
+    margin: 5px;
+    border: 100px solid #ccc;
+    float:left;
+    width: 100px;
 }
+
+.PhotoSrc:hover {
+    width: 200px;
+    border: 5px solid #222;
+}
+
+PhotoSrc img {
+    width: 100%;
+    height: auto;
+}
+*/

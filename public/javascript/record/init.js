@@ -21,9 +21,17 @@ $( document ).ready(function() {
         HTML += "<div class='Photo'>";
 
         jQuery.each(result.PhotoSrc, function(i, val) {
+            //HTML += "<a target='_blank' href='/storage/photo/"+result.PhotoSrc[i] +"' >";
             HTML += "<img class='PhotoSrc' src='/storage/photo/" + result.PhotoSrc[i] + "' ><br/>";
+            
         });
         HTML += "</div>";
-        $('#record-data').prepend(HTML);                          
+        $('#record-data').prepend(HTML);
+        
+        (function(){
+            Galleria.loadTheme('/resource/galleria/themes/classic/galleria.classic.js');
+            //Galleria.loadTheme('/resource/galleria/themes/fullscreen/galleria.fullscreen.min.js');
+            Galleria.run('.Photo');
+        }());                          
     });
 });
