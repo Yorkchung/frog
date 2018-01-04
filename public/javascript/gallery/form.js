@@ -29,7 +29,8 @@ $( "#records-frog" ).click(function(e) {
         //console.log(photos);
         
         for(var i =0; i<photos.length; i++){
-            imgDivHTML += "<button class='showAlbum' value='" + key[i] + "'><img  width='200' height='200' src='/storage/photo/" + photos[i]+"' style='padding:10px;''>"+key[i]+"</button>";
+        
+            imgDivHTML += "<img class='showAlbum' name='" + key[i] + "' width='200' height='200' src='/storage/photo/" + photos[i]+"' style='border-radius: 50%;''><span>"+key[i]+"</span>";
         }
 //       for(var i=0;i<key.length;i++){
 //           console.log(i);
@@ -45,7 +46,7 @@ $( "#records-frog" ).click(function(e) {
         $(".showAlbum").click(function(e) {
             $('#album-ul').empty();
             var HTML ="";
-            var number=$(this).val();
+            var number=$(this).attr("name");
             var image=[];
             image.push(result.GroupByTag[number]);
                 console.log(image);        
@@ -84,8 +85,6 @@ $(".prev").click(function(){
 $( "#close-album-div-button" ).click(function(e) {
       $( "#album" ).hide();
   });
-
-
 
 
 
