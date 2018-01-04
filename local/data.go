@@ -73,6 +73,7 @@ type Record struct {
 	RecordName     string
 	OrganismName   string //有空要把單筆記錄改成可以記錄多個生物 []string
 	ISAnimal       bool
+	Tag            string
 	Kingdom        string
 	Phylum         string
 	Class          string

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -107,6 +108,7 @@ func recordDataController(w http.ResponseWriter, r *http.Request) {
 			uploadRecord(w, r)
 		}
 	case "PATCH":
+		fmt.Println("TEST PATCH")
 		loginStatus := verifyLoginStatus(r)
 		if loginStatus == true {
 			updateRecord(w, r)

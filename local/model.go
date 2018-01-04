@@ -499,8 +499,9 @@ func storeRecord(r *http.Request, UID string) bool {
 
 func searchRecordByRecordID(recordID string) Record {
 	id, _ := strconv.Atoi(recordID)
-	organismname, food, stage, season, status, habitat, note := "", "", "", "", "", "", ""
+	organismname, tag, food, stage, season, status, habitat, note := "", "", "", "", "", "", "", ""
 	db.QueryRow("SELECT organismname FROM record WHERE id = ?", recordID).Scan(&organismname)
+	db.QueryRow("SELECT tag FROM record WHERE id = ?", recordID).Scan(&tag)
 	db.QueryRow("SELECT food FROM record WHERE id = ?", recordID).Scan(&food)
 	db.QueryRow("SELECT stage FROM record WHERE id = ?", recordID).Scan(&stage)
 	db.QueryRow("SELECT season FROM record WHERE id = ?", recordID).Scan(&season)
@@ -511,6 +512,7 @@ func searchRecordByRecordID(recordID string) Record {
 	r := Record{
 		ID:           id,
 		OrganismName: organismname,
+		Tag:          tag,
 		Food:         food,
 		Stage:        stage,
 		Season:       season,
@@ -550,98 +552,101 @@ func alterRecordByRecordID(r *http.Request, UID string) bool {
 
 	form := r.MultipartForm
 	recordID := form.Value["recordid"][0]
-
-	for key, value := range r.MultipartForm.Value {
-		if key == "photos" {
-			continue
-		}
-		if len(value) == 1 {
-			updateCommand := "UPDATE record SET `" + key + "`=?" + " WHERE id=?"
-			_, updateErr := db.Exec(updateCommand, value[0], recordID)
-			if updateErr != nil {
-				successAlter = false
+	fmt.Println(recordID)
+	fmt.Println(form)
+	/*
+		for key, value := range r.MultipartForm.Value {
+			if key == "photos" {
+				continue
 			}
-		} else {
+			if len(value) == 1 {
+				updateCommand := "UPDATE record SET `" + key + "`=?" + " WHERE id=?"
+				_, updateErr := db.Exec(updateCommand, value[0], recordID)
+				if updateErr != nil {
+					successAlter = false
+				}
+			} else {
 
+			}
 		}
-	}
 
-	for _, fileHeaders := range r.MultipartForm.File {
-		if len(fileHeaders) > 0 {
-			for _, fileHeader := range fileHeaders {
-				file, _ := fileHeader.Open()
-				defer file.Close()
+		for _, fileHeaders := range r.MultipartForm.File {
+			if len(fileHeaders) > 0 {
+				for _, fileHeader := range fileHeaders {
+					file, _ := fileHeader.Open()
+					defer file.Close()
 
-				randString := newRandomString(35)
-				photoExt := filepath.Ext(fileHeader.Filename)
-				photoPath := randString + photoExt
+					randString := newRandomString(35)
+					photoExt := filepath.Ext(fileHeader.Filename)
+					photoPath := randString + photoExt
 
-				buf, _ := ioutil.ReadAll(file)
-				ioutil.WriteFile(frogConfig.StoragePath+"photo/"+photoPath, buf, os.ModePerm)
+					buf, _ := ioutil.ReadAll(file)
+					ioutil.WriteFile(frogConfig.StoragePath+"photo/"+photoPath, buf, os.ModePerm)
 
-				data, decodeErr := exif.Read(frogConfig.StoragePath + "photo/" + photoPath)
+					data, decodeErr := exif.Read(frogConfig.StoragePath + "photo/" + photoPath)
 
-				checkWarn(decodeErr, "decode photo exif err")
+					checkWarn(decodeErr, "decode photo exif err")
 
-				if decodeErr != nil {
-					_, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename)
-					checkErr(storeRecordPhotoErr, "store record photo err")
-					if storeRecordPhotoErr != nil {
-						successAlter = false
-					}
-				} else {
-					latitudePosition, longitudePosition, latitudeValue, longitudeValue, dateAndTime := "", "", "", "", ""
-					for key, value := range data.Tags {
-						switch key {
-						case "North or South Latitude":
-							latitudePosition = value
-						case "East or West Longitude":
-							longitudePosition = value
-						case "Latitude":
-							latitudeValue = value
-						case "Longitude":
-							longitudeValue = value
-						case "Date and Time":
-							dateAndTime = value
-							charsDateAndTime := []rune(dateAndTime)
-							charsDateAndTime[4], charsDateAndTime[7] = '-', '-'
-							dateAndTime = string(charsDateAndTime)
-						}
-					}
-					if latitudePosition != "" && longitudePosition != "" && latitudeValue != "" && longitudeValue != "" {
-						latitude, longitude := parseCoordinate(latitudeValue, latitudePosition, longitudeValue, longitudePosition)
-						result, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, longitude=?, latitude=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename, longitude, latitude)
+					if decodeErr != nil {
+						_, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename)
 						checkErr(storeRecordPhotoErr, "store record photo err")
 						if storeRecordPhotoErr != nil {
 							successAlter = false
-						} else {
-							id, getPhotoIDErr := result.LastInsertId()
-							if getPhotoIDErr == nil {
-								photoID := strconv.FormatInt(id, 10)
-								if dateAndTime != "" {
-									updateCommand := "UPDATE photo SET `dateAndTime`=? WHERE id=?"
-									_, updateErr := db.Exec(updateCommand, dateAndTime, photoID)
-									if updateErr != nil {
-										successAlter = false
+						}
+					} else {
+						latitudePosition, longitudePosition, latitudeValue, longitudeValue, dateAndTime := "", "", "", "", ""
+						for key, value := range data.Tags {
+							switch key {
+							case "North or South Latitude":
+								latitudePosition = value
+							case "East or West Longitude":
+								longitudePosition = value
+							case "Latitude":
+								latitudeValue = value
+							case "Longitude":
+								longitudeValue = value
+							case "Date and Time":
+								dateAndTime = value
+								charsDateAndTime := []rune(dateAndTime)
+								charsDateAndTime[4], charsDateAndTime[7] = '-', '-'
+								dateAndTime = string(charsDateAndTime)
+							}
+						}
+						if latitudePosition != "" && longitudePosition != "" && latitudeValue != "" && longitudeValue != "" {
+							latitude, longitude := parseCoordinate(latitudeValue, latitudePosition, longitudeValue, longitudePosition)
+							result, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, longitude=?, latitude=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename, longitude, latitude)
+							checkErr(storeRecordPhotoErr, "store record photo err")
+							if storeRecordPhotoErr != nil {
+								successAlter = false
+							} else {
+								id, getPhotoIDErr := result.LastInsertId()
+								if getPhotoIDErr == nil {
+									photoID := strconv.FormatInt(id, 10)
+									if dateAndTime != "" {
+										updateCommand := "UPDATE photo SET `dateAndTime`=? WHERE id=?"
+										_, updateErr := db.Exec(updateCommand, dateAndTime, photoID)
+										if updateErr != nil {
+											successAlter = false
+										}
 									}
 								}
 							}
 						}
-					}
-					if latitudePosition == "" || longitudePosition == "" || latitudeValue == "" || longitudeValue == "" {
-						result, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename)
-						checkErr(storeRecordPhotoErr, "store record photo err")
-						if storeRecordPhotoErr != nil {
-							id, getPhotoIDErr := result.LastInsertId()
-							if getPhotoIDErr != nil {
-								successAlter = false
-							} else {
-								photoID := strconv.FormatInt(id, 10)
-								if dateAndTime != "" {
-									updateCommand := "UPDATE photo SET `dateAndTime`=? WHERE id=?"
-									_, updateErr := db.Exec(updateCommand, dateAndTime, photoID)
-									if updateErr != nil {
-										successAlter = false
+						if latitudePosition == "" || longitudePosition == "" || latitudeValue == "" || longitudeValue == "" {
+							result, storeRecordPhotoErr := db.Exec("INSERT INTO photo SET userid=?, recordid=?, path=?, name=?, createtime=CURRENT_TIMESTAMP", UID, recordID, photoPath, fileHeader.Filename)
+							checkErr(storeRecordPhotoErr, "store record photo err")
+							if storeRecordPhotoErr != nil {
+								id, getPhotoIDErr := result.LastInsertId()
+								if getPhotoIDErr != nil {
+									successAlter = false
+								} else {
+									photoID := strconv.FormatInt(id, 10)
+									if dateAndTime != "" {
+										updateCommand := "UPDATE photo SET `dateAndTime`=? WHERE id=?"
+										_, updateErr := db.Exec(updateCommand, dateAndTime, photoID)
+										if updateErr != nil {
+											successAlter = false
+										}
 									}
 								}
 							}
@@ -650,7 +655,7 @@ func alterRecordByRecordID(r *http.Request, UID string) bool {
 				}
 			}
 		}
-	}
+	*/
 	return successAlter
 }
 

@@ -16,12 +16,56 @@
             <!--top end-->
             <div class="main">
                 <div id="record-data" class="record-data">
-
                 </div>
             </div>
             <!--main end-->
         </div>
         <!--container end-->
+        
+        <div id="editDiv" class="edit-div">
+            <form class="edit-form edit-form-animate" action="/record/data" id="editform">
+                <!--<div><button class="close-edit-div-button"></button></div>-->
+                <div class="verification-box">
+                    <label for="name">物種名</label><br>
+                    <input type="text" id="organismname" name="organismname"><br/>
+                    <label for="name">標籤</label><br>
+                    <select name="tag">
+                        <option value="frog">蛙類</option>
+                        <option value="lepidoptera">蝶類</option>
+                        <option value="plant">植物</option>
+                    </select><br/>
+
+                    <label for="stage">年齡：</label><br>
+                    <select name="stage">
+                        <option value="幼年">幼年</option>
+                        <option value="中年">中年</option>
+                        <option value="老年">老年</option>
+                    </select><br/>
+
+                    <label for="season">季節：</label><br>
+                    <select name="season">
+                        <option value="春季">春季</option>
+                        <option value="夏季">夏季</option>
+                        <option value="秋季">秋季</option>
+                        <option value="冬季">冬季</option>
+                        <option value="春季">春夏</option>
+                        <option value="夏季">夏秋</option>
+                        <option value="秋季">秋冬</option>
+                        <option value="冬季">四季</option>
+                    </select><br/>
+
+                    <label for="status">性狀</label><br>
+                    <textarea id="textarea-status" name="status" rows="5" cols="35"></textarea><br/>
+
+                    <label for="habitat">棲地</label><br>
+                    <textarea id="textarea-habitat" name="habitat" rows="5" cols="35"></textarea><br/>
+
+                    <label for="note">備註</label><br>
+                    <textarea id="textarea-note" name="note" rows="5" cols="35"></textarea><br/>
+                    <button id="edit-button-with-form" type="submit">提交</button>
+                </div>
+            </form>
+        </div>
         <script src="/public/javascript/record/form.js"></script>
     </body>
 </html>

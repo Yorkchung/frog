@@ -505,3 +505,11 @@
 [Error] 2018/01/03 11:53:03 log.go:7: open csv file err
 [Error] 2018/01/03 11:53:57 log.go:7: open csv file err
 [Error] 2018/01/03 17:57:18 log.go:7: ListenAndServe err
+[Error] 2018/01/04 15:42:09 log.go:7: ListenAndServe err
+[Error] 2018/01/04 15:43:46 log.go:7: ListenAndServe err
+[Error] 2018/01/04 15:44:50 log.go:7: connectRedisErr
+[Error] 2018/01/04 15:45:01 log.go:7: connectRedisErr
+[Error] 2018/01/04 15:45:23 log.go:7: get session from redis err
+[Error] 2018/01/04 15:45:31 log.go:7: get session from redis err
+[Error] 2018/01/04 15:45:44 log.go:7: get session from redis err
+[Error] 2018/01/04 15:45:47 log.go:7: get session from redis err

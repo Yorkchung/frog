@@ -4,10 +4,11 @@
     flex-direction: column;
     min-width: 100%;
 }
+
 .back_to_records {
     text-decoration: none;
     position: absolute;
-    top: 25px;
+    top: 72px;
     right: 5px;
     padding: 15px 20px;
     background: gray;
@@ -15,6 +16,7 @@
     margin: 10px 10px 0px 6px;
     border-radius: 10px;
 }
+
 .main table {
     display: flex;
     align-items: center;
@@ -22,6 +24,7 @@
     width: 90%;
     font-size: 20px;
 }
+
 .main #record-data tr, td {
     /*display: flex;*/
     align-items: center;
@@ -66,3 +69,83 @@ PhotoSrc img {
     height: auto;
 }
 */
+
+.edit-div {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.edit-form {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/*
+.close-edit-div-button {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close-edit-div-button:hover,
+.close-edit-div-button:focus {
+    color: red;
+    cursor: pointer;
+}
+*/
+
+.verification-box {
+    padding: 16px;
+}
+
+input {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+#edit-button-with-form {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    margin: 8px 0;
+    background-color: #606060;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#edit-button-with-form:hover {
+    opacity: 0.8;
+}
+
+.edit-form-animate {
+    -webkit-animation: editanimatezoom 0.6s;
+    animation: editanimatezoom 0.6s
+}
+
+@-webkit-keyframes editanimatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes editanimatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
