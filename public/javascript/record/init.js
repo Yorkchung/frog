@@ -37,6 +37,8 @@ $( document ).ready(function() {
         
         $( ".edit-record" ).click(function(e) {
             $(".edit-div").css('display', 'block');
+            
+            
             $("input[name$='organismname']").attr("required", "true");
             $("input[name$='organismname']").val( result.OrganismName );
             $('select[name="season"] option[value="' + result.Season +'"').attr('selected', 'selected');
@@ -45,6 +47,9 @@ $( document ).ready(function() {
             $('textarea#textarea-status').val(result.Status);
             $('textarea#textarea-habitat').val(result.Habitat);
             $('textarea#textarea-note').val(result.Note);
+            EDITHTML = '<input type="hidden" id="recordid" name="recordid"' + 'value="' + result.ID + '">';
+            $('#edit-box').prepend(EDITHTML);
+
             $(".edit-div").css('display', 'block');
         });
         
@@ -52,46 +57,24 @@ $( document ).ready(function() {
             $(".edit-div").css("display","none");
         });
         
-        $( "#edit-button-with-form" ).click(function(e) {
-
-            e.preventDefault();
-            var form = $('.edit-form edit-form-animate');
+        $( "#edit-form" ).submit(function(e) {
+            e.preventDefault();            
             
-            //need set result.ID
-            
-            console.log(form);
+            var formData = new FormData(this);
             $.ajax({
                 url : "/record/data",
-                type: "PATCH",
-                data : form,
-                processData: false,
+                method: "PATCH",
+                data: formData,
                 contentType: false,
+                processData: false,
                 success:function(data, textStatus, jqXHR) {
-                    //var result = $.parseJSON(data);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("ajax post error", textStatus);
-                },
-                always: function() {
-
+                    var result = $.parseJSON(data);
+                    $("#edit-form")[0].reset();
+                    $(".edit-div").css("display","none");
+                    location.reload();
                 }
             });
-                        /*
-
-            $.ajax({
-                url : "/record/data" + '?' + $.param({"recordid" : result.ID}),
-                type: "PATCH"
-            }).done(function( deleteResult ) {;
-                 var result = $.parseJSON(deleteResult);
-                 if (result.DeleteStatus == true) {
-                 }
-            });
-            */
-
-
-            
         });
-        
     });
 });
 

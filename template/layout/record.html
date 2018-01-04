@@ -23,9 +23,9 @@
         <!--container end-->
         
         <div id="editDiv" class="edit-div">
-            <form class="edit-form edit-form-animate" action="/record/data" id="editform">
+            <form class="edit-form edit-form-animate" action="/record/data" id="edit-form">
                 <!--<div><button class="close-edit-div-button"></button></div>-->
-                <div class="verification-box">
+                <div class="edit-box" id="edit-box">
                     <label for="name">物種名</label><br>
                     <input type="text" id="organismname" name="organismname"><br/>
                     <label for="name">標籤</label><br>
@@ -62,6 +62,10 @@
 
                     <label for="note">備註</label><br>
                     <textarea id="textarea-note" name="note" rows="5" cols="35"></textarea><br/>
+                    
+                    <label class="upload-label" id="choose-photo" for="photos">新增照片</label>
+                    <input type="file" id="photos" name="photos" multiple="multiple">
+
                     <button id="edit-button-with-form" type="submit">提交</button>
                 </div>
             </form>
