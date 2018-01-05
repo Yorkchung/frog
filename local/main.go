@@ -44,6 +44,11 @@ func main() {
 	mux.HandleFunc("/register", registerController)
 	mux.HandleFunc("/console", consoleController)
 	mux.HandleFunc("/upload", uploadController)
+	/*
+		/records/data and /record/data 可合併成 /records/data
+		if get /records/data		return all records data
+		if get /records/data?id=1 	return specified record data
+	*/
 	mux.HandleFunc("/record", recordController)
 	mux.HandleFunc("/record/data", recordDataController)
 	mux.HandleFunc("/records", recordsController)
