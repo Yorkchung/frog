@@ -1,3 +1,4 @@
+/*
 // disable enter's submit
 $('input').keypress(function(e) {
     if(e.keyCode == 13) {
@@ -26,3 +27,4 @@ $("#register-form").submit(function(e) {
         }
     });
 });
+*/
