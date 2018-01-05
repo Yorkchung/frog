@@ -1,0 +1,21 @@
+/* 背景色 */
+body {
+    background-color:rgb(219,249,241);
+}
+
+/* 變更bootstrap預設字型 */
+body,button, input, textarea,h1 ,h2, h3, h4, h5, h6
+{
+    font-family: Microsoft YaHei, Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    z-index:1;
+}
+
+/* 青蛙圖片 */
+#id_footer {                
+    height: 25%;
+    box-sizing: border-box;
+    position:fixed;
+    z-index:0;
+    right:2%;
+    bottom:10px;
+}

@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,5 +20,108 @@
             </form>
         </div>
         <script src="/public/javascript/register/register.js"></script>
+    </body>
+</html>
+-->
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" meta content="width=device-width ,height=device-height, initial-scale=1.0">
+        <title>註冊頁面 Register</title>
+
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <!-- bootstrap-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+        <!-- local-->
+        <link rel="stylesheet" href="/public/css/register/register.css">
+
+    </head>
+    <body>
+        <nav class=" navbar navbar-expand-lg navbar-light bg-light  navbar navbar-dark bg-dark">    <!--最上面那行導航列-->
+            <a class="navbar-brand" href="#">
+                <img src="/public/image/register/flog.jpg" width="35" height="35" style="border-radius:20px;"> 青蛙阿婆的家~
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav  mr-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">首頁 <span class="sr-only">(current)</span></a>    <!--隨便加的不知道有那些不需要可刪-->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">查看圖鑑</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">上傳專區</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class=" btn btn-outline-success "  type="button">登入</button>     <!--想說之後可以跟登入連結不需要可刪-->
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--標題-->
+        <h1 class="text-center" style=line-height:80px >
+        會員註冊 (Sign up)
+        </h1>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <!--bootstrap 網格設定(用於左右空間留白)-->
+                <div class="col-md-2"></div>
+
+                <!--bootstrap 網格設定(配置中間版面大小)-->
+                <div class="col-md-8">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">
+                            電子信箱 (Email address)
+                            </label>
+                            <input type="email" id="email" name="email" class="form-control" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">
+                            帳號 (Username)
+                            </label>
+                            <input type="username" id="username" name="username" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">
+                            密碼 (Password)
+                            </label>
+                            <input type="password" id="password" name="password" class="form-control" >
+                        </div>
+
+                        <div class="form-group">
+                        <button type="submit" id="submit-register-button" class=" btn btn-success btn-lg btn-block ">
+                        立即註冊 Create Account
+                        </button>
+                        <button type="reset" id="cancel-register-button" class=" btn btn-secondary btn-lg btn-block ">
+                        清除重填 Clear
+                        </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--bootstrap 網格設定(用於左右空間留白)-->
+            <div class="col-md-2"></div>
+        </div>
+        <!--</div>-->
+        <!--青蛙-->
+        <img src="/public/image/register/LF.png" id="id_footer">
     </body>
 </html>
