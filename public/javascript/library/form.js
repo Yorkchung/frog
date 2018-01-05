@@ -14,7 +14,7 @@ $( "#library-frog" ).click(function(e) {
             searchResultHTML += "<tr><td class='title'>種類</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
             searchResultHTML += "<tr><td class='title'>性狀</td><td class='dataStatus'>" + val.Status + "</td></tr>";
             searchResultHTML += "<tr><td class='title'>棲地</td><td class='dataHabitat'>" + val.Habitat + "</td></tr>";
-            searchResultHTML += "<tr><td class='title'>操作</td><td><button class='deleteDataButton' value='" + val.ID + "'>刪除</button><button class='modifyDataButton' value='" + val.ID + "'>編輯</button><button class='getRecordsByOrganismName' value='" + val.OrganismName + "'>相關記錄</button></td></tr>";
+            searchResultHTML += "<tr><td class='title'>操作</td><td><button class='deleteDataButton' value='" + val.ID + "'>刪除</button><button class='modifyDataButton' value='" + val.ID + "'>編輯</button><button id='get-records-by-organismname' class='getRecordsByOrganismName' value='" + val.OrganismName + "'>相關記錄</button></td></tr>";
             searchResultHTML += "</tbody></table>";
             searchResultHTML += "</div></br>";
             searchResultHTML += '';
@@ -39,7 +39,7 @@ $( "#library-lepidoptera" ).click(function(e) {
             searchResultHTML += "<tr><td class='title'>種類</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
             searchResultHTML += "<tr><td class='title'>性狀</td><td class='dataStatus'>" + val.Status + "</td></tr>";
             searchResultHTML += "<tr><td class='title'>棲地</td><td class='dataHabitat'>" + val.Habitat + "</td></tr>";
-            searchResultHTML += "<tr><td class='title'>操作</td><td><button class='deleteDataButton' value='" + val.ID + "'>刪除</button><button class='modifyDataButton' value='" + val.ID + "'>編輯</button><button class='getRecordsByOrganismName' value='" + val.OrganismName + "'>相關記錄</button></td></tr>";
+            searchResultHTML += "<tr><td class='title'>操作</td><td><button class='deleteDataButton' value='" + val.ID + "'>刪除</button><button class='modifyDataButton' value='" + val.ID + "'>編輯</button><button id='get-records-by-organismname' class='getRecordsByOrganismName' value='" + val.OrganismName + "'>相關記錄</button></td></tr>";
             searchResultHTML += "</tbody></table>";
             searchResultHTML += "</div></br>";
             searchResultHTML += '';
@@ -64,7 +64,7 @@ $( "#library-plant" ).click(function(e) {
             searchResultHTML += "<tr><td>種類</td><td class='dataOrganismName'>"+ val.OrganismName +"</td></tr>";
             searchResultHTML += "<tr><td>性狀</td><td class='dataStatus'>" + val.Status + "</td></tr>";
             searchResultHTML += "<tr><td>棲地</td><td class='dataHabitat'>" + val.Habitat + "</td></tr>";
-            searchResultHTML += "<tr><td>操作</td><td><button class='deleteDataButton' value='" + val.ID + "'>刪除</button><button class='modifyDataButton' value='" + val.ID + "'>編輯</button><button class='getRecordsByOrganismName' value='" + val.OrganismName + "'>相關記錄</button></td></tr>";
+            searchResultHTML += "<tr><td>操作</td><td><button class='deleteDataButton' value='" + val.ID + "'>刪除</button><button class='modifyDataButton' value='" + val.ID + "'>編輯</button><button id='get-records-by-organismname' class='getRecordsByOrganismName' value='" + val.OrganismName + "'>相關記錄</button></td></tr>";
             searchResultHTML += "</tbody></table>";
             searchResultHTML += "</div></br>";
             searchResultHTML += '';
@@ -106,6 +106,13 @@ $( ".modifyDataButton" ).click(function(e) {
         }
     });
 });
+
+/*
+$("#get-records-by-organismname").click(function(e) {
+    var organismname = $(this).val();
+    window.location.href = "/records?organismname=" + organismname + "";
+});
+*/
 
 $("#cancel-delete-button").click(function() {
     $("#deleteDataDiv").hide();

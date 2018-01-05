@@ -515,3 +515,5 @@
 [Error] 2018/01/04 15:45:47 log.go:7: get session from redis err
 [Error] 2018/01/04 18:06:31 log.go:7: store record photo err
 [Error] 2018/01/04 18:08:40 log.go:7: store record photo err
+[Error] 2018/01/05 16:04:04 log.go:7: ListenAndServe err
+[Error] 2018/01/05 16:04:47 log.go:7: ListenAndServe err
